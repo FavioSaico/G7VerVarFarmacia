@@ -47,7 +47,7 @@ public class AgregarMedicinaTest {
     @BeforeEach // antes de cada prueba
     void setup() {
         driver = new ChromeDriver();
-        driver.get("http://localhost/farmacia/login.php");
+        driver.get("http://localhost/farmacia-g7/farmacia/login.php");
         driver.manage().window().maximize();
 
         WebElement correoField = driver.findElement(By.id("email"));
@@ -64,7 +64,7 @@ public class AgregarMedicinaTest {
         WebElement successMessage = driver.findElement(By.className("successMessageText"));
         assertTrue(successMessage.isDisplayed(), "La información fue registrada exitosamente");
 
-        driver.get("http://localhost/farmacia/add-product.php");
+        driver.get("http://localhost/farmacia-g7/farmacia/add-product.php");
 
         esperar(2000);
 
@@ -136,7 +136,7 @@ public class AgregarMedicinaTest {
 
         productSubmitButton.click();
 
-        String urlEsperado = "http://localhost/farmacia/product.php";
+        String urlEsperado = "http://localhost/farmacia-g7/farmacia/product.php";
         String urlActual = driver.getCurrentUrl();
 
         //assertTrue("");
@@ -170,7 +170,7 @@ public class AgregarMedicinaTest {
         esperar(2000);
         productSubmitButton.click();
 
-        String urlEsperado = "http://localhost/farmacia/product.php";
+        String urlEsperado = "http://localhost/farmacia-g7/farmacia/product.php";
         String urlActual = driver.getCurrentUrl();
 
         // verificamos el cambio de url
