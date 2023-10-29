@@ -232,7 +232,76 @@ public class AgregarMedicinaTest {
         esperar(1000);
 
         WebElement successMessage = driver.findElement(By.id("missing-name"));
-        assertTrue(successMessage.isDisplayed(), "El nombre del medicamente no es nulo");
+        assertTrue(successMessage.isDisplayed(), "El nombre del medicamento no es nulo");
+    }
+
+    @Test
+    void CP09_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("0");
+        agregarMedicinaPage.setUnitQuantity("30");
+        agregarMedicinaPage.setPrice("300");
+        agregarMedicinaPage.setPrm("322");
+        agregarMedicinaPage.setBatchNo("346389");
+        agregarMedicinaPage.setExpdate("15052028"); // 15/05/2028
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser superior o igual a 1";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+    }
+
+    @Test
+    void CP010_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("1000");
+        agregarMedicinaPage.setUnitQuantity("47");
+        agregarMedicinaPage.setPrice("650");
+        agregarMedicinaPage.setPrm("413");
+        agregarMedicinaPage.setBatchNo("930638");
+        agregarMedicinaPage.setExpdate("09062026"); // 09/06/2026
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es menor de 1000");
+    }
+
+    @Test
+    void CP011_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        //agregarMedicinaPage.setQuantity("1000");
+        agregarMedicinaPage.setUnitQuantity("98");
+        agregarMedicinaPage.setPrice("50");
+        agregarMedicinaPage.setPrm("143");
+        agregarMedicinaPage.setBatchNo("417099");
+        agregarMedicinaPage.setExpdate("15022027"); // 15/02/2027
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-quantity"));
+        assertTrue(successMessage.isDisplayed(), "La cantidad del medicamento no es nulo");
     }
 
 }
