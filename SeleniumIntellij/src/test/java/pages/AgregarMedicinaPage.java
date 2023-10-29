@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 public class AgregarMedicinaPage {
 
     private WebDriver driver;
-    private By medicineImageFieldLocator = By.id("MedicineImage");;
+    private By medicineImageFieldLocator = By.id("MedicineImage");
     private By medicineNameFieldLocator = By.id("productName");
     private By quantityFieldLocator = By.id("quantity");
     private By unitQuantityFieldLocator = By.id("rate");
@@ -24,7 +24,7 @@ public class AgregarMedicinaPage {
     private By productStatusSelectLocator = By.id("productStatus");
     //private By selectProductStatusLocator;
     private By submitButtonLocator= By.id("createProductBtn");
-    private Alert alerta = driver.switchTo().alert();
+    private Alert alerta;
 
     public AgregarMedicinaPage(WebDriver driver) {
         this.driver = driver;
@@ -80,26 +80,27 @@ public class AgregarMedicinaPage {
 
     public void setBrandName(String brandName) {
         WebElement brandNameSelect = driver.findElement(brandNameSelectLocator);
-        brandNameSelect.clear();
+        //brandNameSelect.clear();
         Select selectBrandName = new Select(brandNameSelect);
         selectBrandName.selectByVisibleText(brandName);
     }
 
     public void setCategoryName(String categoryName) {
         WebElement categoryNameSelect = driver.findElement(categoryNameSelectLocator);
-        categoryNameSelect.clear();
+        //categoryNameSelect.clear();
         Select selectCategoryName = new Select(categoryNameSelect);
         selectCategoryName.selectByVisibleText(categoryName);
     }
 
-    public void setProductStatusSelectLocator(String productStatus) {
+    public void setProductStatus(String productStatus) {
         WebElement productStatusSelect = driver.findElement(productStatusSelectLocator);
-        productStatusSelect.clear();
+        //productStatusSelect.clear();
         Select selectProductStatus = new Select(productStatusSelect);
         selectProductStatus.selectByVisibleText(productStatus);
     }
 
-    public String alertMessage() {
+    public String getAlertMessage() {
+        alerta = driver.switchTo().alert();
         String textAlertActual = alerta.getText();
         alerta.accept();
         return textAlertActual;
