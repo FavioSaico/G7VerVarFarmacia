@@ -33,14 +33,16 @@
                     <div id="add-brand-messages"></div>
                     <div class="card-body">
                         <div class="input-states">
-                            <form class="form-horizontal" method="POST" id="submitBrandForm" action="php_action/createCategories.php" enctype="multipart/form-data">
-
+                            <form class="form-horizontal needs-validation" method="POST" id="submitBrandForm" action="php_action/createCategories.php" enctype="multipart/form-data" novalidate>
 
                                 <div class="form-group">
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Nombre Categoría</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="categoriesName" placeholder="Categoría" name="categoriesName" required="" pattern="^[a-zA-z]+$" />
+                                            <input type="text" class="form-control" id="categoriesName" placeholder="Categoría" name="categoriesName" required/>
+                                            <div id="error-category" class="invalid-feedback">
+                                                Escriba el nombre de la categoría
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -48,11 +50,14 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Estado</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" id="categoriesStatus" name="categoriesStatus">
+                                            <select class="form-control" id="categoriesStatus" name="categoriesStatus" required>
                                                 <option value="">~~Seleccionar~~</option>
                                                 <option value="1">Disponible</option>
                                                 <option value="2">No disponible</option>
                                             </select>
+                                            <div id="error-status" class="invalid-feedback">
+                                                Debe seleccionar un estado
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +72,28 @@
 
         </div>
 
+        <script>
 
+            const forms = document.querySelector('.needs-validation');
+            forms.addEventListener('submit', (event) => {
+                if (!forms.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    const brandNameInput = document.getElementById('categoriesName');
+                    const brandNameValue = brandNameInput.value;
 
+                    if(brandNameValue.length > 50){
+                        document.getElementById('error-category').textContent = 'El nombre debe tener menos de 50 caracteres';
+                        brandNameInput.style.borderColor="red";
+                        document.getElementById('error-category').style.display="block";
+                        event.preventDefault();
+                    }
+                }
 
+                forms.classList.add('was-validated')
+            });
+
+        </script>
 
         <?php include('./constant/layout/footer.php'); ?>
