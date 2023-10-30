@@ -600,7 +600,7 @@ public class AgregarMedicinaTest {
         esperar(1000);
         Calendar c = Calendar.getInstance();
         String dia = Integer.toString(c.get(Calendar.DATE));
-        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String mes = Integer.toString(c.get(Calendar.MONTH)+1);
         String anio = Integer.toString(c.get(Calendar.YEAR));
 
         // mensaje de alerta

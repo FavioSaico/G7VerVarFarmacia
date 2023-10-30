@@ -193,7 +193,8 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
         });
 
-        const forms = document.querySelector('.needs-validation');
+        // validación del formulario usando boostrap
+        /*const forms = document.querySelector('.needs-validation');
         forms.addEventListener('submit', (event) => {
             if (!forms.checkValidity()) {
                 event.preventDefault()
@@ -201,7 +202,8 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             forms.classList.add('was-validated')
-        });
+        });*/
+
 
         function validateForm(event) {
             const allowedCharacters = /^[A-Za-z0-9\s]+$/;
@@ -220,6 +222,12 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             const categoryName = document.getElementById('categoryName').value; // '1'
             const productStatus = document.getElementById('productStatus').value;
 
+            if (!this.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+                //return false;
+            }
+            
             // Validando nombre del producto
             if (productName.length < minLength && productName.length != 0) {
                 alert('El nombre de la medicina debe tener al menos ' + minLength + ' caracteres.');
@@ -293,14 +301,13 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // expdate
-            if (fecha !=''){
+            if (expdate !=''){
                 let hoy = new Date(Date.now());
                 hoy = new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
                 let fecha = new Date(expdate);
                 fecha = new Date(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()+1);
-                console.log('hola mundo');
+                
                 if(fecha-hoy < 0 && fecha !=''){
-                    console.log('hola mundo');
                     alert('El valor debe ser ' + hoy.toLocaleDateString()+ ' (Fecha Actual) o superior');
                     event.preventDefault();
                     return false;
@@ -310,14 +317,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
                     return false;
                 }
             }
-            
-            // brandName
-            /*if(brandName==0){
-                alert('Selecciona un elemento de la lista');
-                event.preventDefault();
-                return false;
-            }*/
-
+            this.classList.add('was-validated')
             return true;
         }
 
