@@ -33,7 +33,7 @@
                     <div id="add-brand-messages"></div>
                     <div class="card-body">
                         <div class="input-states">
-                            <form class="form-horizontal" method="POST" id="submitBrandForm" action="php_action/createBrand.php" enctype="multipart/form-data">
+                            <form class="form-horizontal needs-validation" method="POST" id="submitBrandForm" action="php_action/createBrand.php" enctype="multipart/form-data" novalidate>
 
                                 <input type="hidden" name="currnt_date" class="form-control">
 
@@ -41,7 +41,10 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Nombre Proveedor</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="brandName" placeholder="Proveedor" name="brandName" required="" pattern="^[a-zA-z]+$" />
+                                            <input type="text" class="form-control" id="brandName" placeholder="Proveedor" name="brandName" required/>
+                                            <div id="error-brand" class="invalid-feedback">
+                                                Escriba el nombre del proveedor
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,11 +52,14 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Estado</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" id="brandStatus" name="brandStatus">
+                                            <select class="form-control" id="brandStatus" name="brandStatus" required>
                                                 <option value="">~~Seleccionar~~</option>
                                                 <option value="1">Disponible</option>
                                                 <option value="2">No disponible</option>
                                             </select>
+                                            <div id="error-status" class="invalid-feedback">
+                                                Debe seleccionar un estado
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +74,29 @@
 
         </div>
 
+        <script>
 
+            const forms = document.querySelector('.needs-validation');
+            forms.addEventListener('submit', (event) => {
+                if (!forms.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                    const brandNameInput = document.getElementById('brandName');
+                    const brandNameValue = brandNameInput.value;
+
+                    if(brandNameValue.length > 50){
+                        document.getElementById('error-brand').textContent = 'El nombre debe tener menos de 50 caracteres';
+                        brandNameInput.style.borderColor="red";
+                        document.getElementById('error-brand').style.display="block";
+                        event.preventDefault();
+                    }
+                }
+
+                forms.classList.add('was-validated')
+            });
+
+        </script> 
 
 
 
