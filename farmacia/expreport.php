@@ -33,15 +33,16 @@
                     <div id="add-brand-messages"></div>
                     <div class="card-body">
                         <div class="input-states">
-                            <form class="form-horizontal" action="getproductreport.php" method="post" id="getOrderReportForm">
-
-
+                            <form class="form-horizontal needs-validation" action="getproductreport.php" method="post" id="getOrderReportForm" novalidate>
 
                                 <div class="form-group">
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Fecha de Inicio</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control" id="startDate" name="startDate" placeholder="Fecha de Inicio" />
+                                            <input type="date" class="form-control" id="startDate" name="startDate" placeholder="Fecha de Inicio" required/>
+                                            <div id="error-startdate" class="invalid-feedback">
+                                                La fecha inicial no puede estar vacía
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +50,10 @@
                                     <div class="row">
                                         <label class="col-sm-3 control-label">Fecha de Fin</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control" id="endDate" name="endDate" placeholder="Fecha de Fin" />
+                                            <input type="date" class="form-control" id="endDate" name="endDate" placeholder="Fecha de Fin" required/>
+                                            <div id="error-enddate" class="invalid-feedback">
+                                                La fecha final no puede estar vacía
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,66 +68,47 @@
         </div>
 
         <script>
-            $(document).ready(function() {
-                // order date picker
-                $("#startDate").date();
-                // order date picker
-                $("#endDate").date();
 
-                $("#getOrderReportForm").unbind('submit').bind('submit', function() {
+            const forms = document.querySelector('.needs-validation');
+            forms.addEventListener('submit', (event) => {
+                if (!forms.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                } else {
+                const startDateInput = document.getElementById('startDate');
+                const endDateInput = document.getElementById('endDate');
+                const currentDate = new Date();
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
 
-                    var startDate = $("#startDate").val();
-                    var endDate = $("#endDate").val();
+                if (startDate > endDate) {
+                    document.getElementById('error-startdate').textContent = 'La fecha inicial debe ser menor o igual a la fecha final';
+                    document.getElementById('error-startdate').style.display="block";
+                    startDateInput.style.borderColor="red";
+                    event.preventDefault();
+                } else {
+                    document.getElementById('error-startdate').textContent = 'La fecha inicial no puede estar vacía';
+                    document.getElementById('error-startdate').style.display="none";
+                    startDateInput.style.borderColor="#e7e7e7";
+                }
 
-                    if (startDate == "" || endDate == "") {
-                        if (startDate == "") {
-                            $("#startDate").closest('.form-group').addClass('has-error');
-                            $("#startDate").after('<p class="text-danger">El campo fecha de Inicio es requerido</p>');
-                        } else {
-                            $(".form-group").removeClass('has-error');
-                            $(".text-danger").remove();
-                        }
+                if (endDate > currentDate) {
+                    document.getElementById('error-enddate').textContent = 'La fecha final debe ser menor o igual a la fecha actual';
+                    document.getElementById('error-enddate').style.display="block";
+                    endDateInput.style.borderColor="red";
+                    event.preventDefault();
+                } else {
+                    document.getElementById('error-enddate').textContent = 'La fecha final no puede estar vacía';
+                    document.getElementById('error-enddate').style.display="none";
+                    endDateInput.style.borderColor="#e7e7e7";
+                }
 
-                        if (endDate == "") {
-                            $("#endDate").closest('.form-group').addClass('has-error');
-                            $("#endDate").after('<p class="text-danger">El campo fecha de fin es requerido</p>');
-                        } else {
-                            $(".form-group").removeClass('has-error');
-                            $(".text-danger").remove();
-                        }
-                    } else {
-                        $(".form-group").removeClass('has-error');
-                        $(".text-danger").remove();
+            }
 
-                        var form = $(this);
-
-                        $.ajax({
-                            url: form.attr('action'),
-                            type: form.attr('method'),
-                            data: form.serialize(),
-                            dataType: 'date',
-                            success: function(response) {
-                                var mywindow = window.open('', 'Sistema de Factura', 'height=400,width=600');
-                                mywindow.document.write('<html><head><title>Reporte</title>');
-                                mywindow.document.write('</head><body>');
-                                mywindow.document.write(response);
-                                mywindow.document.write('</body></html>');
-
-                                mywindow.document.close(); // necessary for IE >= 10
-                                mywindow.focus(); // necessary for IE >= 10
-
-                                mywindow.print();
-                                mywindow.close();
-                            } // /success
-                        }); // /ajax
-
-                    } // /else
-
-                    return false;
-                });
-
+                forms.classList.add('was-validated')
             });
-        </script>
+
+        </script> 
 
 
         <?php include('./constant/layout/footer.php'); ?>
