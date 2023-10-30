@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import pages.AgregarMedicinaPage;
 import pages.LoginPage;
 
+import java.util.Calendar;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -304,4 +306,415 @@ public class AgregarMedicinaTest {
         assertTrue(successMessage.isDisplayed(), "La cantidad del medicamento no es nulo");
     }
 
+    @Test
+    void CP012_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("30");
+        agregarMedicinaPage.setUnitQuantity("0");
+        agregarMedicinaPage.setPrice("13");
+        agregarMedicinaPage.setPrm("111");
+        agregarMedicinaPage.setBatchNo("107164");
+        agregarMedicinaPage.setExpdate("02122024"); // 02/12/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser superior o igual a 1";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+    }
+
+    @Test
+    void CP013_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("100");
+        agregarMedicinaPage.setUnitQuantity("1000");
+        agregarMedicinaPage.setPrice("65");
+        agregarMedicinaPage.setPrm("242");
+        agregarMedicinaPage.setBatchNo("828191");
+        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es menor de 1000");
+    }
+
+    @Test
+    void CP014_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("150");
+        //agregarMedicinaPage.setUnitQuantity("98");
+        agregarMedicinaPage.setPrice("300");
+        agregarMedicinaPage.setPrm("210");
+        agregarMedicinaPage.setBatchNo("534571");
+        agregarMedicinaPage.setExpdate("20022028"); // 20/02/2028
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-rate"));
+        assertTrue(successMessage.isDisplayed(), "La cantidad del medicamento no es nulo");
+    }
+
+    @Test
+    void CP015_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("45");
+        agregarMedicinaPage.setUnitQuantity("25");
+        agregarMedicinaPage.setPrice("0");
+        agregarMedicinaPage.setPrm("101");
+        agregarMedicinaPage.setBatchNo("292803");
+        agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser superior o igual a 1";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+    }
+
+    @Test
+    void CP016_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("50");
+        agregarMedicinaPage.setUnitQuantity("10");
+        agregarMedicinaPage.setPrice("10000");
+        agregarMedicinaPage.setPrm("178");
+        agregarMedicinaPage.setBatchNo("565809");
+        agregarMedicinaPage.setExpdate("15012024"); // 15/01/2024
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "El precio es menor de 1000");
+    }
+
+    @Test
+    void CP017_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("30");
+        agregarMedicinaPage.setUnitQuantity("600");
+        //agregarMedicinaPage.setPrice("300");
+        agregarMedicinaPage.setPrm("288");
+        agregarMedicinaPage.setBatchNo("570788");
+        agregarMedicinaPage.setExpdate("20022029"); // 20/02/2029
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-price"));
+        assertTrue(successMessage.isDisplayed(), "El precio del medicamento no es nulo");
+    }
+
+    @Test
+    void CP018_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("100");
+        agregarMedicinaPage.setUnitQuantity("30");
+        agregarMedicinaPage.setPrice("50");
+        agregarMedicinaPage.setPrm("-1");
+        agregarMedicinaPage.setBatchNo("993095");
+        agregarMedicinaPage.setExpdate("05052025"); // 05/05/2025
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser superior o igual a 1";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "El PRM es mayor a 1");
+    }
+
+    @Test
+    void CP019_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("150");
+        agregarMedicinaPage.setUnitQuantity("47");
+        agregarMedicinaPage.setPrice("13");
+        agregarMedicinaPage.setPrm("501");
+        agregarMedicinaPage.setBatchNo("503540");
+        agregarMedicinaPage.setExpdate("13082024"); // 13/08/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser inferior o igual a 500";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "El PRM es menor de 500");
+    }
+
+    @Test
+    void CP020_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("45");
+        agregarMedicinaPage.setUnitQuantity("25");
+        agregarMedicinaPage.setPrice("65");
+        //agregarMedicinaPage.setPrm("288");
+        agregarMedicinaPage.setBatchNo("512276");
+        agregarMedicinaPage.setExpdate("25072025"); // 25/07/2025
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-mrp"));
+        assertTrue(successMessage.isDisplayed(), "El PRM del medicamento no es nulo");
+    }
+
+    @Test
+    void CP21_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("50");
+        agregarMedicinaPage.setUnitQuantity("10");
+        agregarMedicinaPage.setPrice("300");
+        agregarMedicinaPage.setPrm("487");
+        agregarMedicinaPage.setBatchNo("99999");
+        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser superior o igual a 100000";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "El No de Lote es mayor a 100000");
+    }
+
+    @Test
+    void CP22_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("30");
+        agregarMedicinaPage.setUnitQuantity("600");
+        agregarMedicinaPage.setPrice("650");
+        agregarMedicinaPage.setPrm("398");
+        agregarMedicinaPage.setBatchNo("1000000");
+        agregarMedicinaPage.setExpdate("15102024"); // 15/10/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser inferior o igual a 999999";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "El No de Lote es menor de 999999");
+    }
+
+    @Test
+    void CP23_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("100");
+        agregarMedicinaPage.setUnitQuantity("30");
+        agregarMedicinaPage.setPrice("50");
+        agregarMedicinaPage.setPrm("499");
+        //agregarMedicinaPage.setBatchNo("512276");
+        agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-bno"));
+        assertTrue(successMessage.isDisplayed(), "El No de Lote del medicamento no es nulo");
+    }
+
+    @Test
+    void CP24_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("150");
+        agregarMedicinaPage.setUnitQuantity("47");
+        agregarMedicinaPage.setPrice("13");
+        agregarMedicinaPage.setPrm("411");
+        agregarMedicinaPage.setBatchNo("709291");
+        agregarMedicinaPage.setExpdate("02102023"); // 02/10/2023
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+        Calendar c = Calendar.getInstance();
+        String dia = Integer.toString(c.get(Calendar.DATE));
+        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String anio = Integer.toString(c.get(Calendar.YEAR));
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser " + dia + "/" + mes + "/" + anio + " (Fecha Actual) o superior";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La fecha de expiracion es mayor a la fecha actual");
+    }
+
+    @Test
+    void CP25_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("45");
+        agregarMedicinaPage.setUnitQuantity("25");
+        agregarMedicinaPage.setPrice("65");
+        agregarMedicinaPage.setPrm("275");
+        agregarMedicinaPage.setBatchNo("949838");
+        agregarMedicinaPage.setExpdate("10102100"); // 10/10/2100
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(3000);
+
+        // mensaje de alerta
+        String textAlertActual = agregarMedicinaPage.getAlertMessage();
+        String textAlertEsperado = "El valor debe ser 31/12/2030 o anterior";
+        // verificamos el cambio de url
+        assertEquals(textAlertEsperado,textAlertActual,() -> "La fecha de expiracion es menor de 31/12/2030");
+    }
+
+    @Test
+    void CP26_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("50");
+        agregarMedicinaPage.setUnitQuantity("10");
+        agregarMedicinaPage.setPrice("300");
+        agregarMedicinaPage.setPrm("189");
+        agregarMedicinaPage.setBatchNo("404920");
+        //agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-expdate"));
+        assertTrue(successMessage.isDisplayed(), "La fecha de expiracion no es nula");
+    }
+
+    @Test
+    void CP27_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
+        agregarMedicinaPage.setQuantity("30");
+        agregarMedicinaPage.setUnitQuantity("600");
+        agregarMedicinaPage.setPrice("650");
+        agregarMedicinaPage.setPrm("345");
+        agregarMedicinaPage.setBatchNo("805346");
+        agregarMedicinaPage.setExpdate("22082025"); // 22/08/2025
+        //agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Pastillas");
+        agregarMedicinaPage.setProductStatus("Disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-brandName"));
+        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+    }
+
+    @Test
+    void CP28_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
+        agregarMedicinaPage.setQuantity("100");
+        agregarMedicinaPage.setUnitQuantity("30");
+        agregarMedicinaPage.setPrice("70");
+        agregarMedicinaPage.setPrm("321");
+        agregarMedicinaPage.setBatchNo("416267");
+        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setBrandName("Cipla");
+        //agregarMedicinaPage.setCategoryName("Vacunas");
+        agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-categoryName"));
+        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+    }
+
+    @Test
+    void CP29_Test(){
+        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
+        agregarMedicinaPage.setQuantity("150");
+        agregarMedicinaPage.setUnitQuantity("47");
+        agregarMedicinaPage.setPrice("13");
+        agregarMedicinaPage.setPrm("488");
+        agregarMedicinaPage.setBatchNo("881890");
+        agregarMedicinaPage.setExpdate("18102025"); // 18/10/2025
+        agregarMedicinaPage.setBrandName("Inkafarma");
+        agregarMedicinaPage.setCategoryName("Vacunas");
+        //agregarMedicinaPage.setProductStatus("No disponible");
+        agregarMedicinaPage.submit();
+
+        esperar(1000);
+
+        WebElement successMessage = driver.findElement(By.id("missing-productStatus"));
+        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+    }
 }

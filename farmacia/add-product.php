@@ -89,7 +89,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label">PRM</label>
-                                    <input type="text" class="form-control" id="mrp" placeholder="PRM" name="mrp" autocomplete="off" required="" pattern="^[0-9]+$" />
+                                    <input type="text" class="form-control" id="mrp" placeholder="PRM" name="mrp" autocomplete="off" required pattern="^[0-9]+$" />
                                     <div id="missing-mrp" class="invalid-feedback">
                                         Completa este campo
                                     </div>
@@ -97,7 +97,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
                                 <div class="form-group col-md-6">
                                     <label class="control-label">N° de Lote</label>
                                     <input type="text" class="form-control" id="Batch No" placeholder="Batch No" name="bno" autocomplete="off" required="" pattern="^[Aa-Zz]+$" />
-                                    <div id="missing-mrp" class="invalid-feedback">
+                                    <div id="missing-bno" class="invalid-feedback">
                                         Completa este campo
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
                                     //Declarando la variable fechaActual que almacena la fecha del día de hoy 
                                     $fechaActual = date('Y-m-d');
                                     ?>
-                                    <input type="date" class="form-control" id="expdate" placeholder="Expiry Date" name="expdate" autocomplete="off" required="" min="<?= $fechaActual ?>" max="2030-12-31" />
+                                    <input type="date" class="form-control" id="expdate" placeholder="Expiry Date" name="expdate" autocomplete="off" required="" min="<?= $fechaActual ?>" max="2030-12-31"/>
                                     <div id="missing-expdate" class="invalid-feedback">
                                         Completa este campo
                                     </div>
@@ -238,7 +238,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // Cantidad
-            if(quantityy < 1 && quantity !=''){
+            if(quantity < 1 && quantity !=''){
                 alert('El valor debe ser superior o igual a 1');
                 event.preventDefault();
                 return false;
@@ -249,7 +249,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // unitQuantity
-            if(unitQuantity < 1){
+            if(unitQuantity < 1 && unitQuantity !=''){
                 alert('El valor debe ser superior o igual a 1');
                 event.preventDefault();
                 return false;
@@ -260,7 +260,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // price
-            if(price < 1){
+            if(price < 1 && price !=''){
                 alert('El valor debe ser superior o igual a 1');
                 event.preventDefault();
                 return false;
@@ -271,7 +271,7 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // prm
-            if(prm < 1){
+            if(prm < 1 && prm !=''){
                 alert('El valor debe ser superior o igual a 1');
                 event.preventDefault();
                 return false;
@@ -282,31 +282,35 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
             }
 
             // batchNo
-            if(prm < 100000){
+            if(batchNo < 100000 && batchNo !=''){
                 alert('El valor debe ser superior o igual a 100000');
                 event.preventDefault();
                 return false;
-            }else if(prm  > 999999){
+            }else if(batchNo  > 999999){
                 alert('El valor debe ser inferior o igual a 999999');
                 event.preventDefault();
                 return false;
             }
 
             // expdate
-            let hoy = new Date(Date.now());
-            hoy = new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
-            let fecha = new Date(expdate);
-            fecha = new Date(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()+1);
-            if(fecha-hoy < 0){
-                alert('El valor debe ser ' + hoy.toLocaleDateString()+ ' (Fecha Actual) o superior');
-                event.preventDefault();
-                return false;
-            }else if(expdate  > 999999){
-                alert('El valor debe ser 31/12/2030 o anterior');
-                event.preventDefault();
-                return false;
+            if (fecha !=''){
+                let hoy = new Date(Date.now());
+                hoy = new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
+                let fecha = new Date(expdate);
+                fecha = new Date(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()+1);
+                console.log('hola mundo');
+                if(fecha-hoy < 0 && fecha !=''){
+                    console.log('hola mundo');
+                    alert('El valor debe ser ' + hoy.toLocaleDateString()+ ' (Fecha Actual) o superior');
+                    event.preventDefault();
+                    return false;
+                }else if(fecha > new Date('2030-12-31')){
+                    alert('El valor debe ser 31/12/2030 o anterior');
+                    event.preventDefault();
+                    return false;
+                }
             }
-
+            
             // brandName
             /*if(brandName==0){
                 alert('Selecciona un elemento de la lista');
