@@ -176,148 +176,226 @@ if(isset($_FILES['Medicine']) && $_FILES['Medicine']['error'] === UPLOAD_ERR_OK)
         <?php include('./constant/layout/footer.php'); ?>
 
         <script>
+
+        function errorInput(input, elementErrorMessage, message){
+            elementErrorMessage.textContent = message;
+            elementErrorMessage.style.display="block";
+            input.style.borderColor="#f44336";
+        }
+
+        function validInput(input, elementErrorMessage){
+            elementErrorMessage.textContent = "Completa este campo";
+            elementErrorMessage.style.display="none";
+            input.style.borderColor="#e7e7e7"; // #28a745 #e7e7e7
+        }
+
         document.getElementById('MedicineImage').addEventListener('change', function() {
             const file = this.files[0];
             const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
             const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;  // Extensiones permitidas: jpg, jpeg, png
 
+            const missingImageFile = document.getElementById('missing-image');
+
             if (!allowedExtensions.test(file.name)) {
-                alert('Solo se permiten archivos con extensiones .jpg, .jpeg o .png.');
+                errorInput(this,missingImageFile,'Solo se permiten archivos con extensiones .jpg, .jpeg o .png.');
+                //alert('Solo se permiten archivos con extensiones .jpg, .jpeg o .png.');
                 this.value = ''; // Limpiar el campo de carga para que el usuario pueda elegir otro archivo
                 return;
             }
 
             if (file.size > maxSizeInBytes) {
-                alert('El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.');
+                errorInput(this,missingImageFile,'El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.');
+                //alert('El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.');
                 this.value = ''; // Limpiar el campo de carga para que el usuario pueda elegir otro archivo
+                return;
             }
+
+            validInput(this,missingImageFile)
+
         });
-
-        // validación del formulario usando boostrap
-        /*const forms = document.querySelector('.needs-validation');
-        forms.addEventListener('submit', (event) => {
-            if (!forms.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-
-            forms.classList.add('was-validated')
-        });*/
-
 
         function validateForm(event) {
             const allowedCharacters = /^[A-Za-z0-9\s]+$/;
             const minLength = 3;
             const maxLength = 50;
 
-            const imageFile = document.getElementById('MedicineImage').files[0];
-            const productName = document.getElementById('productName').value;
-            const quantity = document.getElementById('quantity').value;
-            const unitQuantity = document.getElementById('rate').value;
-            const price = document.getElementById('price').value;
-            const prm = document.getElementById('mrp').value;
-            const batchNo = document.getElementById('Batch No').value;
-            const expdate = document.getElementById('expdate').value; // '2023-11-02' o ''
-            const brandName = document.getElementById('brandName').value;
-            const categoryName = document.getElementById('categoryName').value; // '1'
-            const productStatus = document.getElementById('productStatus').value;
+            const imageFile = document.getElementById('MedicineImage');
+            const missingImageFile = document.getElementById('missing-image');
+            const productName = document.getElementById('productName');
+            const missingName = document.getElementById('missing-name');
+            const quantity = document.getElementById('quantity');
+            const missingQuantity = document.getElementById('missing-quantity');
+            const unitQuantity = document.getElementById('rate');
+            const missingUnitQuantity = document.getElementById('missing-rate');
+            const price = document.getElementById('price');
+            const missingPrice = document.getElementById('missing-price');
+            const prm = document.getElementById('mrp');
+            const missingPrm = document.getElementById('missing-mrp');
+            const batchNo = document.getElementById('Batch No');
+            const missingBno = document.getElementById('missing-bno');
+            const expdate = document.getElementById('expdate'); // '2023-11-02' o ''
+            const missingExpdate = document.getElementById('missing-expdate')
+            const brandName = document.getElementById('brandName');
+            const missingBrand = document.getElementById('missing-brandName');
+            const categoryName = document.getElementById('categoryName'); // '1'
+            const missingCategory = document.getElementById('missing-categoryName');
+            const productStatus = document.getElementById('productStatus');
+            const missingProductStatus = document.getElementById('missing-productStatus');
+            let errors = 0;
 
-            if (!this.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-                //return false;
-            }
-            
-            // Validando nombre del producto
-            if (productName.length < minLength && productName.length != 0) {
-                alert('El nombre de la medicina debe tener al menos ' + minLength + ' caracteres.');
-                event.preventDefault(); // Evitar el envío del formulario
-                return false;
-            } else if (productName.length > maxLength) {
-                alert('El nombre de la medicina no puede tener más de ' + maxLength + ' caracteres.');
-                event.preventDefault(); // Evitar el envío del formulario
-                return false;
+            if(imageFile.files.length == 0){ // vacio
+                errorInput(imageFile,missingImageFile,'Selecciona una imagen.');
+                errors++;
+            }else{
+                validInput(imageFile,missingImageFile);
             }
 
-            if (!allowedCharacters.test(productName) && productName.length != 0) {
-                alert('El nombre de la medicina solo puede contener letras, números y espacios.');
-                event.preventDefault(); // Evitar el envío del formulario
-                return false;
+            // Nombre del producto
+            if(productName.value.length == 0){ // vacio
+                errorInput(productName,missingName,'Completa este campo');
+                errors++;
+            }else{ // validamos campo
+                if (productName.value.length < minLength) {
+                    errorInput(productName,missingName,'El nombre de la medicina debe tener al menos ' + minLength + ' caracteres.');
+                    errors++;
+                } else if (productName.value.length > maxLength) {
+                    errorInput(productName,missingName,'El nombre de la medicina no puede tener más de ' + maxLength + ' caracteres.');
+                    errors++;
+                }else if (!allowedCharacters.test(productName.value)) {
+                    errorInput(productName,missingName,'El nombre de la medicina solo puede contener letras, números y espacios.');
+                    errors++;
+                }else{ // campo valido
+                    validInput(productName,missingName);
+                }
             }
 
             // Cantidad
-            if(quantity < 1 && quantity !=''){
-                alert('El valor debe ser superior o igual a 1');
-                event.preventDefault();
-                return false;
-            }else if(quantity > 999){
-                alert('El valor debe ser inferior o igual a 999');
-                event.preventDefault();
-                return false;
+            if (quantity.value ==''){
+                errorInput(quantity,missingQuantity,'Completa este campo');
+                errors++;
+            }else{
+                if(quantity.value < 1){
+                    errorInput(quantity,missingQuantity,'El valor debe ser superior o igual a 1');
+                    errors++;
+                }else if(quantity.value > 999){
+                    errorInput(quantity,missingQuantity,'El valor debe ser inferior o igual a 999');
+                    errors++;
+                }else{
+                    validInput(quantity,missingQuantity);
+                }
             }
 
             // unitQuantity
-            if(unitQuantity < 1 && unitQuantity !=''){
-                alert('El valor debe ser superior o igual a 1');
-                event.preventDefault();
-                return false;
-            }else if(unitQuantity  > 999){
-                alert('El valor debe ser inferior o igual a 999');
-                event.preventDefault();
-                return false;
+            if(unitQuantity.value ==''){
+                errorInput(unitQuantity,missingUnitQuantity,'Completa este campo');
+                errors++;
+            }else{
+                if(unitQuantity.value < 1){
+                    errorInput(unitQuantity,missingUnitQuantity,'El valor debe ser superior o igual a 1');
+                    errors++;
+                }else if(unitQuantity.value  > 999){
+                    errorInput(unitQuantity,missingUnitQuantity,'El valor debe ser inferior o igual a 999');
+                    errors++;
+                }else{
+                    validInput(unitQuantity,missingUnitQuantity);
+                }
             }
-
+            
             // price
-            if(price < 1 && price !=''){
-                alert('El valor debe ser superior o igual a 1');
-                event.preventDefault();
-                return false;
-            }else if(price  > 999){
-                alert('El valor debe ser inferior o igual a 999');
-                event.preventDefault();
-                return false;
+            if(price.value ==''){
+                errorInput(price,missingPrice,'Completa este campo');
+                errors++;
+            }else{
+                if(price.value < 1){
+                    errorInput(price,missingPrice,'El valor debe ser superior o igual a 1');
+                    errors++;
+                }else if(price.value  > 999){
+                    errorInput(price,missingPrice,'El valor debe ser inferior o igual a 999');
+                    errors++;
+                }else{
+                    validInput(price,missingPrice);
+                }
             }
-
+            
             // prm
-            if(prm < 1 && prm !=''){
-                alert('El valor debe ser superior o igual a 1');
-                event.preventDefault();
-                return false;
-            }else if(prm  > 500){
-                alert('El valor debe ser inferior o igual a 500');
-                event.preventDefault();
-                return false;
+            if(prm.value ==''){
+                errorInput(prm,missingPrm,'Completa este campo');
+                errors++;
+            }else{
+                if(prm.value < 1 && prm.value !=''){
+                    errorInput(prm,missingPrm,'El valor debe ser superior o igual a 1');
+                    errors++;
+                }else if(prm.value > 500){
+                    errorInput(prm,missingPrm,'El valor debe ser inferior o igual a 500');
+                    errors++;
+                }else{
+                    validInput(prm,missingPrm);
+                }
             }
 
             // batchNo
-            if(batchNo < 100000 && batchNo !=''){
-                alert('El valor debe ser superior o igual a 100000');
-                event.preventDefault();
-                return false;
-            }else if(batchNo  > 999999){
-                alert('El valor debe ser inferior o igual a 999999');
-                event.preventDefault();
-                return false;
+            if(batchNo.value ==''){
+                errorInput(batchNo,missingBno,'Completa este campo');
+                errors++;
+            }else{
+                if(batchNo.value < 100000 && batchNo.value !=''){
+                    errorInput(batchNo,missingBno,'El valor debe ser superior o igual a 100000');
+                    errors++;
+                }else if(batchNo.value  > 999999){
+                    errorInput(batchNo,missingBno,'El valor debe ser inferior o igual a 999999');
+                    errors++;
+                }else{
+                    validInput(batchNo,missingBno);
+                }
             }
 
             // expdate
-            if (expdate !=''){
+            if(expdate.value ==''){
+                errorInput(expdate,missingExpdate,'Completa este campo');
+                errors++;
+            }else{
                 let hoy = new Date(Date.now());
                 hoy = new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
-                let fecha = new Date(expdate);
+                let fecha = new Date(expdate.value);
                 fecha = new Date(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()+1);
                 
-                if(fecha-hoy < 0 && fecha !=''){
-                    alert('El valor debe ser ' + hoy.toLocaleDateString()+ ' (Fecha Actual) o superior');
-                    event.preventDefault();
-                    return false;
+                if(fecha < hoy){ //  && fecha !=''
+                    errorInput(expdate,missingExpdate,'El valor debe ser ' + hoy.toLocaleDateString()+ ' (Fecha Actual) o superior');
+                    errors++;
                 }else if(fecha > new Date('2030-12-31')){
-                    alert('El valor debe ser 31/12/2030 o anterior');
-                    event.preventDefault();
-                    return false;
+                    errorInput(expdate,missingExpdate,'El valor debe ser 31/12/2030 o anterior');
+                    errors++;
+                }else{
+                    validInput(expdate,missingExpdate);
                 }
             }
-            this.classList.add('was-validated')
+
+            if(brandName.value == ''){
+                errorInput(brandName,missingBrand,'Selecciona un elemento de la lista');
+                errors++;
+            }else{
+                validInput(brandName,missingBrand);
+            }
+
+            if(categoryName.value == ''){
+                errorInput(categoryName,missingCategory,'Selecciona un elemento de la lista');
+                errors++;
+            }else{
+                validInput(categoryName,missingCategory);
+            }
+
+            if(productStatus.value == ''){
+                errorInput(productStatus,missingProductStatus,'Selecciona un elemento de la lista');
+                errors++;
+            }else{
+                validInput(productStatus,missingProductStatus);
+            }
+
+            if(errors > 0){
+                event.preventDefault();
+                return false;
+            }
+            
             return true;
         }
 
