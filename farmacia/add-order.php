@@ -333,7 +333,7 @@ if ($_GET['o'] == 'add') {
                 <option value="2">Pago Parcial</option>
                 <option value="3">Pago Pendiente</option>
               </select>
-              <div id="error-paymentType" class="invalid-feedback">
+              <div id="error-paymentStatus" class="invalid-feedback">
                 Seleccionar el estado de pago
               </div>
             </div>
