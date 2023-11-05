@@ -183,7 +183,7 @@ if ($_GET['o'] == 'add') {
                         <td style="padding-left:20px;">
                           <!-- Disponibles -->
                           <div class="form-group">
-                            <p class="form-control" style="background:#E9ECEF" id="available_quantity<?php echo $x; ?>" value="<?php echo $cantidad?>"></p> 
+                            <p class="form-control available_q" style="background:#E9ECEF" id="available_quantity<?php echo $x; ?>" value="<?php echo $cantidad?>"></p> 
                           </div>
                         </td>
                         <td style="padding-left:20px;">
@@ -380,12 +380,17 @@ if ($_GET['o'] == 'add') {
               if (!forms.checkValidity()) {
                   event.preventDefault();
                   event.stopPropagation();
-              } else {
+              } 
                    const clientNameInput = document.getElementById('clientName');
                    const clientNameValue = clientNameInput.value;
                    const clientNameError = document.getElementById('error-clientName');
-                
-                   if (clientNameValue.length > 20) {
+                   
+                   if (!clientNameValue) {
+                    clientNameError.textContent = 'Escribir nombre de cliente';
+                    clientNameError.style.display = 'block';
+                    clientNameInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else if (clientNameValue.length > 20) {
                      clientNameError.textContent = 'El nombre del cliente debe tener menos de 21 caracteres';
                      clientNameError.style.display = 'block';
                      clientNameInput.style.borderColor = 'red';
@@ -393,8 +398,114 @@ if ($_GET['o'] == 'add') {
                    } else {
                      clientNameError.textContent = 'Escriba el nombre del cliente';
                      clientNameError.style.display = 'none';
+                     clientNameInput.style.borderColor="#e7e7e7";
                    }
-               }
+                   
+                   const orderDateInput = document.getElementById('orderDate');
+                   const orderDateValue = orderDateInput ? orderDateInput.value : '';
+                   const currentDate = new Date();
+                   const orderDateError = document.getElementById('error-orderDate');
+
+                   if (!orderDateValue || orderDateValue.trim() === '') {
+                    orderDateError.textContent = 'Seleccionar la fecha de factura';
+                    orderDateError.style.display = 'block';
+                    orderDateInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else {
+                    const orderDateObj = new Date(orderDateValue);
+                    if (orderDateValue > currentDate) {
+                      orderDateError.textContent = 'La fecha de factura debe ser menor o igual a la fecha actual';
+                      orderDateError.style.display = 'block';
+                      orderDateInput.style.borderColor = 'red';
+                      event.preventDefault();
+                    } else {
+                      orderDateError.textContent = 'Seleccionar la fecha de factura';
+                      orderDateError.style.display = 'none';
+                      orderDateInput.style.borderColor="#e7e7e7";
+                    }
+                  }
+
+                  const clientContactInput = document.getElementById('clientContact');
+                  const clientContactValue = clientContactInput.value;
+                  const clientContactError = document.getElementById('error-clientContact')
+
+                  if (!clientContactValue) {
+                    clientContactError.textContent = 'Escribir numero de contacto del cliente';
+                    clientContactError.style.display = 'block';
+                    clientContactInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else if (!/^\d{9}$/.test(clientContactValue)) {
+                    clientContactError.textContent = 'El móvil debe tener exactamente 9 caracteres numéricos';
+                    clientContactError.style.display = 'block';
+                    clientContactInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else {
+                    clientContactError.textContent = 'Escribir numero de contacto del cliente';
+                    clientContactError.style.display = 'none';
+                    clientContactInput.style.borderColor = "#e7e7e7";
+                  }
+
+                  // const availableQuantity = document.getElementByClassName('available_q');
+                  // const quantityInput = document.getElementByName('quantity[]');
+                  // const quantityValue = quantityInput.value;
+                  // const quantityError = document.getElementById('error-quantity')
+
+                  // if (!quantityValue) {
+                  //   clientContactError.textContent = 'Seleccionar cantidad de medicina';
+                  //   clientContactError.style.display = 'block';
+                  //   clientContactInput.style.borderColor = 'red';
+                  //   event.preventDefault();
+                  // } else if (quantity <= 0 || quantity > availableQuantity) {
+                  //   quantityError.textContent = 'La cantidad seleccionada no puede ser mayor a la disponible o menor a 1';
+                  //   quantityError.style.display = 'block';
+                  //   quantityInput.style.borderColor = 'red';
+                  //   event.preventDefault();
+                  // } else {
+                  //   quantityError.textContent = 'Seleccionar cantidad de medicina';
+                  //   quantityError.style.display = 'none';
+                  //   quantityInput.style.borderColor = "#e7e7e7";
+                  // }
+
+                  const discountInput = document.getElementById('discount');
+                  const discountValue = parseFloat(discountInput.value);
+                  const discountError = document.getElementById('error-discount');
+                  const totalAmountValue = parseFloat(document.getElementById('totalAmountValue').value);
+                  
+                  if (isNaN(discountValue)) {
+                    discountError.textContent = 'Escribir el descuento (0)';
+                    discountError.style.display = 'block';
+                    discountInput.style.borderColor = 'red';
+                    event.preventDefault();
+                 } else if (discountValue < 0 || discountValue > totalAmountValue) {
+                    discountError.textContent = 'El descuento no puede ser mayor al monto total o menor a 0';
+                    discountError.style.display = 'block';
+                    discountInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else {
+                    discountError.textContent = 'Escribir el descuento (0)';
+                    discountError.style.display = 'none';
+                    discountInput.style.borderColor="#e7e7e7";
+                  }
+
+                  const paidInput = document.getElementById('paid');
+                  const paidValue = parseFloat(paidInput.value);
+                  const paidError = document.getElementById('error-paid');
+                  
+                  if (isNaN(paidValue)) {
+                    paidError.textContent = 'Escribir el monto pagado';
+                    paidError.style.display = 'block';
+                    paidInput.style.borderColor = 'red';
+                    event.preventDefault();
+                 } else if (paidValue < 0) {
+                  paidError.textContent = 'El monto pagado no puede ser menor a 0';
+                  paidError.style.display = 'block';
+                  paidInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else {
+                    paidError.textContent = 'Escribir el monto pagado';
+                    paidError.style.display = 'none';
+                    paidInput.style.borderColor="#e7e7e7";
+                  }
 
               forms.classList.add('was-validated');
           });
