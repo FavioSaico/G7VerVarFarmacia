@@ -205,11 +205,9 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.submit();
         esperar(2000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El nombre de la medicina no puede tener más de 50 caracteres.";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El nombre del medicamente tiene más de 2 caracteres");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
+        String textErrorEsperado = "El nombre de la medicina no puede tener más de 50 caracteres.";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El nombre del medicamente tiene más de 2 caracteres");
     }
 
     @Test
@@ -228,9 +226,9 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.submit();
 
         esperar(1000);
-
-        WebElement successMessage = driver.findElement(By.id("missing-name"));
-        assertTrue(successMessage.isDisplayed(), "El nombre del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El nombre del medicamento no es nulo");
     }
 
     @Test
@@ -250,11 +248,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser superior o igual a 1";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
+        String textErrorEsperado = "El valor debe ser superior o igual a 1";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es mayor a 1");
     }
 
     @Test
@@ -274,11 +270,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es menor de 1000");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
+        String textErrorEsperado = "El valor debe ser inferior o igual a 999";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es menor de 1000");
     }
 
     @Test
@@ -298,8 +292,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-quantity"));
-        assertTrue(successMessage.isDisplayed(), "La cantidad del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad del medicamento no es nulo");
     }
 
     @Test
@@ -319,11 +314,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser superior o igual a 1";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
+        String textErrorEsperado = "El valor debe ser superior o igual a 1";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es mayor a 1");
     }
 
     @Test
@@ -343,11 +336,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es menor de 1000");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
+        String textErrorEsperado = "El valor debe ser inferior o igual a 999";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es menor de 1000");
     }
 
     @Test
@@ -367,8 +358,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-rate"));
-        assertTrue(successMessage.isDisplayed(), "La cantidad del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad del medicamento no es nulo");
     }
 
     @Test
@@ -388,11 +380,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser superior o igual a 1";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La cantidad es mayor a 1");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
+        String textErrorEsperado = "El valor debe ser superior o igual a 1";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es mayor a 1");
     }
 
     @Test
@@ -412,11 +402,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser inferior o igual a 999";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El precio es menor de 1000");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
+        String textErrorEsperado = "El valor debe ser inferior o igual a 999";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El precio es menor de 1000");
     }
 
     @Test
@@ -436,8 +424,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-price"));
-        assertTrue(successMessage.isDisplayed(), "El precio del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El precio del medicamento no es nulo");
     }
 
     @Test
@@ -457,11 +446,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser superior o igual a 1";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El PRM es mayor a 1");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
+        String textErrorEsperado = "El valor debe ser superior o igual a 1";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El PRM es mayor a 1");
     }
 
     @Test
@@ -481,11 +468,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser inferior o igual a 500";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El PRM es menor de 500");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
+        String textErrorEsperado = "El valor debe ser inferior o igual a 500";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El PRM es menor de 500");
     }
 
     @Test
@@ -505,8 +490,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-mrp"));
-        assertTrue(successMessage.isDisplayed(), "El PRM del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El PRM del medicamento no es nulo");
     }
 
     @Test
@@ -526,11 +512,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser superior o igual a 100000";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El No de Lote es mayor a 100000");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
+        String textErrorEsperado = "El valor debe ser superior o igual a 100000";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El No de Lote es mayor a 100000");
     }
 
     @Test
@@ -550,11 +534,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser inferior o igual a 999999";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El No de Lote es menor de 999999");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
+        String textErrorEsperado = "El valor debe ser inferior o igual a 999999";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El No de Lote es menor de 999999");
     }
 
     @Test
@@ -574,8 +556,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-bno"));
-        assertTrue(successMessage.isDisplayed(), "El No de Lote del medicamento no es nulo");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El No de Lote del medicamento no es nulo");
     }
 
     @Test
@@ -599,11 +582,9 @@ public class AgregarMedicinaTest {
         String mes = Integer.toString(c.get(Calendar.MONTH)+1);
         String anio = Integer.toString(c.get(Calendar.YEAR));
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser " + dia + "/" + mes + "/" + anio + " (Fecha Actual) o superior";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La fecha de expiracion es mayor a la fecha actual");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-expdate");
+        String textErrorEsperado = "El valor debe ser " + dia + "/" + mes + "/" + anio + " (Fecha Actual) o superior";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La fecha de expiracion es mayor a la fecha actual");
     }
 
     @Test
@@ -623,11 +604,9 @@ public class AgregarMedicinaTest {
 
         esperar(3000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El valor debe ser 31/12/2030 o anterior";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La fecha de expiracion es menor de 31/12/2030");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-expdate");
+        String textErrorEsperado = "El valor debe ser 31/12/2030 o anterior";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La fecha de expiracion es menor de 31/12/2030");
     }
 
     @Test
@@ -647,8 +626,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-expdate"));
-        assertTrue(successMessage.isDisplayed(), "La fecha de expiracion no es nula");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-expdate");
+        String textErrorEsperado = "Completa este campo";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La fecha de expiracion no es nula");
     }
 
     @Test
@@ -668,8 +648,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-brandName"));
-        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-brandName");
+        String textErrorEsperado = "Selecciona un elemento de la lista";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "Se selecciono un elemento de la lista");
     }
 
     @Test
@@ -689,8 +670,9 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-categoryName"));
-        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-categoryName");
+        String textErrorEsperado = "Selecciona un elemento de la lista";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "Se selecciono un elemento de la lista");
     }
 
     @Test
@@ -710,7 +692,8 @@ public class AgregarMedicinaTest {
 
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-productStatus"));
-        assertTrue(successMessage.isDisplayed(), "Se selecciono un elemento de la lista");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-productStatus");
+        String textErrorEsperado = "Selecciona un elemento de la lista";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "Se selecciono un elemento de la lista");
     }
 }
