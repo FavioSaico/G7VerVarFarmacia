@@ -121,11 +121,11 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image-6mb.jpg");
         esperar(2000);
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
 
-        String textAlertEsperado = "El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.";
-        // verificamos el mensaje del alert
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El tamaño de la imagen no es 6MB");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
+        String textErrorEsperado = "El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.";
+        // verificamos el mensaje de error
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El tamaño de la imagen no es 6MB");
     }
 
     @Test
@@ -142,11 +142,10 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image.gif");
         esperar(1000);
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
 
-        String textAlertEsperado = "Solo se permiten archivos con extensiones .jpg, .jpeg o .png.";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "La imagen no es un gif");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
+        String textErrorEsperado = "Solo se permiten archivos con extensiones .jpg, .jpeg o .png.";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "La imagen no es un gif");
     }
 
     @Test
@@ -161,13 +160,12 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
-        //agregarMedicinaPage.setMedicineImage(null);
         agregarMedicinaPage.submit();
-
         esperar(1000);
 
-        WebElement successMessage = driver.findElement(By.id("missing-image"));
-        assertTrue(successMessage.isDisplayed(), "Se subio una imagen");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
+        String textErrorEsperado = "Selecciona una imagen.";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "Se subio una imagen");
     }
 
     @Test
@@ -186,11 +184,9 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.submit();
         esperar(2000);
 
-        // mensaje de alerta
-        String textAlertActual = agregarMedicinaPage.getAlertMessage();
-        String textAlertEsperado = "El nombre de la medicina debe tener al menos 3 caracteres.";
-        // verificamos el cambio de url
-        assertEquals(textAlertEsperado,textAlertActual,() -> "El nombre del medicamente tiene más de 2 caracteres");
+        String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
+        String textErrorEsperado = "El nombre de la medicina debe tener al menos 3 caracteres.";
+        assertEquals(textErrorEsperado,textErrorActual,() -> "El nombre del medicamente tiene más de 2 caracteres");
     }
 
     @Test

@@ -4,7 +4,11 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AgregarMedicinaPage {
 
@@ -18,12 +22,10 @@ public class AgregarMedicinaPage {
     private By batchNoFieldLocator = By.id("Batch No");
     private By expdateFieldLocator = By.id("expdate");
     private By brandNameSelectLocator = By.id("brandName");
-    //private By selectBrandNameLocator;
     private By categoryNameSelectLocator = By.id("categoryName");
-    //private By selectCategoryNameLocator;
     private By productStatusSelectLocator = By.id("productStatus");
-    //private By selectProductStatusLocator;
     private By submitButtonLocator= By.id("createProductBtn");
+    //private By errorMessageLocator = By.className("invalid-feedback");
     private Alert alerta;
 
     public AgregarMedicinaPage(WebDriver driver) {
@@ -104,6 +106,16 @@ public class AgregarMedicinaPage {
         String textAlertActual = alerta.getText();
         alerta.accept();
         return textAlertActual;
+    }
+
+    public String getErrorMessage(String id) {
+        // Esperar hasta que el elemento con la clase especificada sea visible
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+
+        String Message = errorMessage.getText();
+
+        return Message;
     }
 
     public void submit() {
