@@ -83,7 +83,7 @@ if ($_GET['o'] == 'add') {
           <div id="add-brand-messages"></div>
           <div class="card-body">
             <div class="input-states">
-              <form class="form-horizontal" method="POST" id="createOrderForm" action="php_action/order.php" action="php_action/order.php">
+              <form class="form-horizontal needs-validation" method="POST" id="createOrderForm" action="php_action/order.php" novalidate>
 
 
                 <div class="form-group">
@@ -102,14 +102,17 @@ if ($_GET['o'] == 'add') {
                       $n = "INV-000";
                       $l = $res['id'] + 1;
                       $stall_no = $n . "" . $l; ?>
-                      <input type="text" class="form-control" placeholder="Número Factura" value="<?php echo $stall_no; ?>" autocomplete="off" name="uno" required />
+                      <input type="text" class="form-control" placeholder="Número Factura" value="<?php echo $stall_no; ?>" autocomplete="off" name="uno" disabled="true"/>
                     </div>
 
 
                     <label class="col-sm-2 control-label">Fecha Factura</label>
 
                     <div class="col-sm-4">
-                      <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="orderDate" name="orderDate" autocomplete="off" />
+                      <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="orderDate" name="orderDate" autocomplete="off" required/>
+                      <div id="error-orderDate" class="invalid-feedback">
+                        Seleccionar la fecha de factura
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -117,12 +120,18 @@ if ($_GET['o'] == 'add') {
                   <div class="row">
                     <label class="col-sm-2 control-label">Nombre Cliente</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Nombre Cliente" autocomplete="off" />
+                      <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Nombre Cliente" autocomplete="off" required/>
+                      <div id="error-clientName" class="invalid-feedback">
+                        Escribrir nombre de cliente
+                      </div>
                     </div>
 
                     <label class="col-sm-2 control-label">Móvil </label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Número de Contacto" autocomplete="off" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" required />
+                      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Número de Contacto" autocomplete="off" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" required/>
+                      <div id="error-clientContact" class="invalid-feedback">
+                        Escribrir numero de contacto del cliente
+                      </div>
                     </div>
 
 
@@ -151,7 +160,7 @@ if ($_GET['o'] == 'add') {
                         <td style="margin-left:20px;">
                           <div class="form-group">
 
-                            <select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)">
+                            <select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" required>
                               <option value="">~~Seleccionar~~</option>
                               <?php
                               $productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
@@ -166,6 +175,9 @@ if ($_GET['o'] == 'add') {
 
                               ?>
                             </select>
+                            <div id="error-productName" class="invalid-feedback">
+                              Seleccionar al menos una medicina
+                            </div>
                           </div>
                         </td>
                         <td style="padding-left:20px;">
@@ -187,7 +199,10 @@ if ($_GET['o'] == 'add') {
                         <td style="padding-left:20px;">
                           <!-- Cantidad a comprar-->
                           <div class="form-group">
-                            <input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" onkeyup="getTotal(<?php echo $x ?>)" onChange="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" />
+                            <input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" onkeyup="getTotal(<?php echo $x ?>)" onChange="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" required/>
+                            <div id="error-quantity" class="invalid-feedback">
+                              Seleccionar cantidad de medicina
+                            </div>
                           </div>
                         </td>
                         <td>
@@ -241,7 +256,10 @@ if ($_GET['o'] == 'add') {
           <div class="row">
             <label for="discount" class="col-sm-2 control-label">Descuento</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" / pattern="^[0-9]+$" />
+              <input type="text" class="form-control" id="discount" name="discount" onkeyup="discountFunc()" autocomplete="off" / pattern="^[0-9]+$"/ required>
+              <div id="error-discount" class="invalid-feedback">
+                Escribir el descuento (0)
+              </div>
             </div>
             <label for="grandTotal" class="col-sm-2 control-label">Total</label>
             <div class="col-sm-4">
@@ -267,7 +285,10 @@ if ($_GET['o'] == 'add') {
 
             <label for="paid" class="col-sm-2 control-label">Monto Pagado</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" />
+              <input type="text" class="form-control" id="paid" name="paid" autocomplete="off" onkeyup="paidAmount()" required/>
+              <div id="error-paid" class="invalid-feedback">
+                Escribir el monto pagado
+              </div>
             </div>
 
           </div>
@@ -283,7 +304,7 @@ if ($_GET['o'] == 'add') {
 
             <label for="clientContact" class="col-sm-2 control-label">Tipo de Pago</label>
             <div class="col-sm-4">
-              <select class="form-control" name="paymentType" id="paymentType">
+              <select class="form-control" name="paymentType" id="paymentType" required>
                 <option value="">~~Seleccionar~~</option>
                 <option value="2">Efectivo</option>
                 <option value="4">Nequi</option>
@@ -293,6 +314,9 @@ if ($_GET['o'] == 'add') {
                 <option value="3">Tarjeta de Crédito</option>
 
               </select>
+              <div id="error-paymentType" class="invalid-feedback">
+                Seleccionar el tipo de pago
+              </div>
             </div>
 
 
@@ -303,21 +327,27 @@ if ($_GET['o'] == 'add') {
           <div class="row">
             <label for="clientContact" class="col-sm-2 control-label">Estado del Pago</label>
             <div class="col-sm-4">
-              <select class="form-control" name="paymentStatus" id="paymentStatus">
+              <select class="form-control" name="paymentStatus" id="paymentStatus" required>
                 <option value="">~~Seleccionar~~</option>
                 <option value="1">Pago Completo</option>
                 <option value="2">Pago Parcial</option>
                 <option value="3">Pago Pendiente</option>
               </select>
+              <div id="error-paymentType" class="invalid-feedback">
+                Seleccionar el estado de pago
+              </div>
             </div>
 
             <label for="clientContact" class="col-sm-2 control-label">Lugar del Pago</label>
             <div class="col-sm-4">
-              <select class="form-control" name="paymentPlace" id="paymentPlace">
+              <select class="form-control" name="paymentPlace" id="paymentPlace" required>
                 <option value="">~~Seleccionar~~</option>
                 <option value="1">Colombia</option>
                 <option value="2">Internet</option>
               </select>
+              <div id="error-paymentPlace" class="invalid-feedback">
+                Seleccionar el lugar de pago
+              </div>
             </div>
           </div>
         </div>
@@ -343,6 +373,32 @@ if ($_GET['o'] == 'add') {
 
 <?php include('./constant/layout/footer.php'); ?>
 
+
+<script>
+  const forms = document.querySelector('.needs-validation');
+          forms.addEventListener('submit', function(event) {
+              if (!forms.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+              } else {
+                   const clientNameInput = document.getElementById('clientName');
+                   const clientNameValue = clientNameInput.value;
+                   const clientNameError = document.getElementById('error-clientName');
+                
+                   if (clientNameValue.length > 20) {
+                     clientNameError.textContent = 'El nombre del cliente debe tener menos de 21 caracteres';
+                     clientNameError.style.display = 'block';
+                     clientNameInput.style.borderColor = 'red';
+                     event.preventDefault();
+                   } else {
+                     clientNameError.textContent = 'Escriba el nombre del cliente';
+                     clientNameError.style.display = 'none';
+                   }
+               }
+
+              forms.classList.add('was-validated');
+          });
+</script> 
 
 <script>
   var manageOrderTable;
