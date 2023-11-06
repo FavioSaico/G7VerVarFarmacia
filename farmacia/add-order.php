@@ -128,7 +128,7 @@ if ($_GET['o'] == 'add') {
 
                     <label class="col-sm-2 control-label">Móvil </label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Número de Contacto" autocomplete="off" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" required/>
+                      <input type="text" class="form-control" id="clientContact" name="clientContact" placeholder="Número de Contacto" autocomplete="off" pattern="^[0-9]{9}$" required/>
                       <div id="error-clientContact" class="invalid-feedback">
                         Escribrir numero de contacto del cliente
                       </div>
