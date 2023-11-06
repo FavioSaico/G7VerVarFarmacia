@@ -22,7 +22,7 @@ public class AgregarFacturaPage {
     private By priceValueLocator = By.id("priceValue1");
     private By quantityFieldLocator = By.id("quantity1");
     private By totalValueLocator = By.id("totalValue1");
-    private By subtotalFieldLocator = By.id("subtotal");
+    private By subtotalFieldLocator = By.id("subTotal");
     private By totalAmountValueLocator = By.id("totalAmountValue");
     private By discountFieldLocator = By.id("discount");
     private By grandTotalValueLocator = By.id("grandTotalValue");
@@ -140,41 +140,65 @@ public class AgregarFacturaPage {
     	String priceValue = priceValueField.getAttribute("value");
     	return priceValue;
     }
-    
-    public String getTotalValue() {
+
+    public int getQuantityValue() {
+        WebElement quantityField = driver.findElement(quantityFieldLocator);
+        String quantityValue = quantityField.getAttribute("value");
+        int quantity = Integer.parseInt(quantityValue);
+        return quantity;
+    }
+    public double getTotalValue() {
     	WebElement totalValueField = driver.findElement(totalValueLocator);
     	String totalValue = totalValueField.getAttribute("value");
-    	return totalValue;
+        double total = Double.parseDouble(totalValue);
+    	return total;
+    }
+    public double getSubTotalValue() {
+        WebElement subTotalValueField = driver.findElement(subtotalFieldLocator);
+        String subtTotalValue = subTotalValueField.getAttribute("value");
+        double subtotal = Double.parseDouble(subtTotalValue);
+        return subtotal;
     }
     
-    public String getSubTotalValue() {
-    	WebElement subTotalValueField = driver.findElement(subtotalFieldLocator);
-    	String subtTotalValue = subTotalValueField.getAttribute("value");
-    	return subtTotalValue;
-    }
-    
-    public String getTotalAmountValue() {
+    public double getTotalAmountValue() {
     	WebElement totalAmountValueField = driver.findElement(totalAmountValueLocator);
     	String totalAmountValue = totalAmountValueField.getAttribute("value");
-    	return totalAmountValue;
+        double totalAmount = Double.parseDouble(totalAmountValue);
+    	return totalAmount;
     }
-    
-    public String getGrandTotalValue() {
+
+    public double getDiscountValue() {
+        WebElement discountField = driver.findElement(discountFieldLocator);
+        String discountValue = discountField.getAttribute("value");
+        double discount = Double.parseDouble(discountValue);
+        return discount;
+    }
+
+    public double getGrandTotalValue() {
     	WebElement grandTotalValueField = driver.findElement(grandTotalValueLocator);
     	String grandTotalValue = grandTotalValueField.getAttribute("value");
-    	return grandTotalValue;
+        double grandTotal = Double.parseDouble(grandTotalValue);
+    	return grandTotal;
     }
     
-    public String getVatValue() {
+    public double getVatValue() {
     	WebElement vatValueField = driver.findElement(vatValueLocator);
     	String vatValue = vatValueField.getAttribute("value");
-    	return vatValue;
+        double vat = Double.parseDouble(vatValue);
+    	return vat;
     }
-    
-    public String getDueValue() {
+
+    public double getPaid() {
+        WebElement paidValueField = driver.findElement(paidFieldLocator);
+        String paidValue = paidValueField.getAttribute("value");
+        double paid = Double.parseDouble(paidValue);
+        return paid;
+    }
+    public double getDueValue() {
     	WebElement dueValueField = driver.findElement(dueValueLocator);
     	String dueValue = dueValueField.getAttribute("value");
-    	return dueValue;
+        double due = Double.parseDouble( dueValue);
+    	return due;
     }
     
 }
