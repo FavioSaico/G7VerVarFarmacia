@@ -113,7 +113,7 @@ public class AgregarFacturaTest {
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();
-		
+
 		assertTrue(coincide,() -> "El No Factura no sigue el patron correspondiente");
 		assertFalse(isEmptyAvailableQuantity,() -> "El stock del producto no tiene valor");
 		assertFalse(isEmptyRateValue,() -> "La cantidad por unidad del producto no tiene valor");
@@ -174,9 +174,7 @@ public class AgregarFacturaTest {
 
 		agregarFacturaPage.submit();
         esperar(2000);
-
-		//
-
+		
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();
 
