@@ -200,9 +200,7 @@ if ($_GET['o'] == 'add') {
                           <!-- Cantidad a comprar-->
                           <div class="form-group">
                             <input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" onkeyup="getTotal(<?php echo $x ?>)" onChange="getTotal(<?php echo $x ?>)" autocomplete="off" class="form-control" min="1" required/>
-                            <div id="error-quantity" class="invalid-feedback">
-                              Seleccionar cantidad de medicina
-                            </div>
+                            
                           </div>
                         </td>
                         <td>
@@ -227,13 +225,15 @@ if ($_GET['o'] == 'add') {
 
 
           </tr>
+          
         <?php
                       $arrayNumber++;
                     } // /for
         ?>
         </tbody>
         </table>
-
+        <div id="error-quantity" class="invalid-feedback">Seleccionar cantidad de medicina</div>
+             
 
         <div class="form-group">
           <div class="row">
@@ -396,24 +396,29 @@ if ($_GET['o'] == 'add') {
                      clientNameInput.style.borderColor = 'red';
                      event.preventDefault();
                    } else {
-                     clientNameError.textContent = 'Escriba el nombre del cliente';
-                     clientNameError.style.display = 'none';
-                     clientNameInput.style.borderColor="#e7e7e7";
-                   }
-                   
-                   const orderDateInput = document.getElementById('orderDate');
-                   const orderDateValue = orderDateInput ? orderDateInput.value : '';
-                   const currentDate = new Date();
-                   const orderDateError = document.getElementById('error-orderDate');
+                    clientNameError.textContent = 'Escriba el nombre del cliente';
+                    clientNameError.style.display = 'none';
+                    clientNameInput.style.borderColor="#e7e7e7";
+                  }
+                  
+                  const orderDateInput = document.getElementById('orderDate');
+                  const orderDateValue = orderDateInput ? orderDateInput.value : '';
+                  const currentDate = new Date();
+                  const orderDateError = document.getElementById('error-orderDate');
 
-                   if (!orderDateValue || orderDateValue.trim() === '') {
+                  if (!orderDateValue || orderDateValue.trim() === '') {
                     orderDateError.textContent = 'Seleccionar la fecha de factura';
                     orderDateError.style.display = 'block';
                     orderDateInput.style.borderColor = 'red';
                     event.preventDefault();
                   } else {
-                    const orderDateObj = new Date(orderDateValue);
-                    if (orderDateValue > currentDate) {
+
+                    //const orderDateObj = new Date(orderDateValue);
+                    hoy = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate());
+                    let orderDateObj = new Date(orderDateValue);
+                    orderDateObj = new Date(orderDateObj.getFullYear(),orderDateObj.getMonth(),orderDateObj.getDate()+1);
+
+                    if (orderDateObj  > hoy) {
                       orderDateError.textContent = 'La fecha de factura debe ser menor o igual a la fecha actual';
                       orderDateError.style.display = 'block';
                       orderDateInput.style.borderColor = 'red';
@@ -445,26 +450,27 @@ if ($_GET['o'] == 'add') {
                     clientContactInput.style.borderColor = "#e7e7e7";
                   }
 
-                  // const availableQuantity = document.getElementByClassName('available_q');
-                  // const quantityInput = document.getElementByName('quantity[]');
-                  // const quantityValue = quantityInput.value;
-                  // const quantityError = document.getElementById('error-quantity')
+                  const availableQuantity = parseInt(document.querySelector('.available_q').textContent);
+                  const quantityInput = document.getElementsByName("quantity[]")[0];
+                  const quantityValue = quantityInput.value;
+                  const quantityError = document.getElementById('error-quantity')
 
-                  // if (!quantityValue) {
-                  //   clientContactError.textContent = 'Seleccionar cantidad de medicina';
-                  //   clientContactError.style.display = 'block';
-                  //   clientContactInput.style.borderColor = 'red';
-                  //   event.preventDefault();
-                  // } else if (quantity <= 0 || quantity > availableQuantity) {
-                  //   quantityError.textContent = 'La cantidad seleccionada no puede ser mayor a la disponible o menor a 1';
-                  //   quantityError.style.display = 'block';
-                  //   quantityInput.style.borderColor = 'red';
-                  //   event.preventDefault();
-                  // } else {
-                  //   quantityError.textContent = 'Seleccionar cantidad de medicina';
-                  //   quantityError.style.display = 'none';
-                  //   quantityInput.style.borderColor = "#e7e7e7";
-                  // }
+                  if (!quantityValue) {
+                    quantityError.textContent = 'Seleccionar cantidad de medicina';
+                    quantityError.style.display = 'block';
+                    quantityInput.style.borderColor = 'red';
+                    event.preventDefault();
+                  } else if (quantityValue <= 0 || quantityValue > availableQuantity) {
+                    quantityError.textContent = 'La cantidad seleccionada no puede ser mayor a la disponible o menor a 1';
+                    quantityError.style.display = 'block';
+                    quantityInput.style.borderColor = 'red';
+                    console.log('La cantidad seleccionada no puede ser mayor a la disponible o menor a 1')
+                    event.preventDefault();
+                  } else {
+                    quantityError.textContent = 'Seleccionar cantidad de medicina';
+                    quantityError.style.display = 'none';
+                    quantityInput.style.borderColor = "#e7e7e7";
+                  }
 
                   const discountInput = document.getElementById('discount');
                   const discountValue = parseFloat(discountInput.value);
@@ -476,7 +482,7 @@ if ($_GET['o'] == 'add') {
                     discountError.style.display = 'block';
                     discountInput.style.borderColor = 'red';
                     event.preventDefault();
-                 } else if (discountValue < 0 || discountValue > totalAmountValue) {
+                  } else if (discountValue < 0 || discountValue > totalAmountValue) {
                     discountError.textContent = 'El descuento no puede ser mayor al monto total o menor a 0';
                     discountError.style.display = 'block';
                     discountInput.style.borderColor = 'red';
@@ -947,7 +953,7 @@ if ($_GET['o'] == 'add') {
 
           '<td style="padding-left:20px;">'+
             '<div class="form-group">'+
-              '<p class="form-control" style="background:#E9ECEF" id="available_quantity' + count + '"></p>'+ 
+              '<p class="form-control available_q" style="background:#E9ECEF" id="available_quantity' + count + '"></p>'+ 
             '</div>'+
           '</td>'+
 
