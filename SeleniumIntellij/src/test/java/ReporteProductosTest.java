@@ -34,7 +34,7 @@ public class ReporteProductosTest {
     @BeforeEach // antes de cada prueba
     void setup() {
     	driver = new ChromeDriver();
-        driver.get("http://localhost:90/G7VerVarFarmacia/farmacia/login.php");
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
         // LOGIN
@@ -46,7 +46,7 @@ public class ReporteProductosTest {
 
         assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
-        driver.get("http://localhost:90/G7VerVarFarmacia/farmacia/productreport.php");
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/productreport.php");
 
         esperar(1000);
 
@@ -67,7 +67,7 @@ public class ReporteProductosTest {
 
         esperar(2000);
 
-        String urlEsperado = "http://localhost:90/G7VerVarFarmacia/farmacia/getproductreport.php";
+        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/getproductreport.php";
         String urlActual = driver.getCurrentUrl();
         assertEquals(urlEsperado,urlActual,() -> "Reporte de productos no generado");
     }

@@ -35,7 +35,7 @@ public class AgregarCategoriaTest {
     @BeforeEach // antes de cada prueba
     void setup() {
     	driver = new ChromeDriver();
-        driver.get("http://localhost:90/G7VerVarFarmacia/farmacia/login.php");
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
         // LOGIN
@@ -47,7 +47,7 @@ public class AgregarCategoriaTest {
 
         assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
-        driver.get("http://localhost:90/G7VerVarFarmacia/farmacia/add-category.php");
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-category.php");
 
         esperar(1000);
 
@@ -68,7 +68,7 @@ public class AgregarCategoriaTest {
 
         esperar(2000);
         
-        String urlEsperado = "http://localhost:90/G7VerVarFarmacia/farmacia/categories.php";
+        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
         String urlActual = driver.getCurrentUrl();
         assertEquals(urlEsperado,urlActual,() -> "Categoria no se registro correctamente");
     }
@@ -81,7 +81,7 @@ public class AgregarCategoriaTest {
 
         esperar(2000);
 
-        String urlEsperado = "http://localhost:90/G7VerVarFarmacia/farmacia/categories.php";
+        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
         String urlActual = driver.getCurrentUrl();
         assertEquals(urlEsperado,urlActual,() -> "Categoria no se registro correctamente");
     }
