@@ -120,7 +120,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image-6mb.jpg");
-        esperar(2000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
         String textErrorEsperado = "El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.";
@@ -141,7 +140,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image.gif");
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
         String textErrorEsperado = "Solo se permiten archivos con extensiones .jpg, .jpeg o .png.";
@@ -161,7 +159,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
         String textErrorEsperado = "Selecciona una imagen.";
@@ -182,7 +179,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
-        esperar(2000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
         String textErrorEsperado = "El nombre de la medicina debe tener al menos 3 caracteres.";
@@ -203,7 +199,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-        esperar(2000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
         String textErrorEsperado = "El nombre de la medicina no puede tener más de 50 caracteres.";
@@ -225,7 +220,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-name");
         String textErrorEsperado = "Completa este campo";
         assertEquals(textErrorEsperado,textErrorActual,() -> "El nombre del medicamento no es nulo");
@@ -245,8 +239,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
         String textErrorEsperado = "El valor debe ser superior o igual a 1";
@@ -268,8 +260,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
         String textErrorEsperado = "El valor debe ser inferior o igual a 999";
         assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es menor de 1000");
@@ -289,8 +279,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-quantity");
         String textErrorEsperado = "Completa este campo";
@@ -312,8 +300,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
         String textErrorEsperado = "El valor debe ser superior o igual a 1";
         assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad es mayor a 1");
@@ -333,8 +319,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
         String textErrorEsperado = "El valor debe ser inferior o igual a 999";
@@ -356,8 +340,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-rate");
         String textErrorEsperado = "Completa este campo";
         assertEquals(textErrorEsperado,textErrorActual,() -> "La cantidad del medicamento no es nulo");
@@ -377,8 +359,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
         String textErrorEsperado = "El valor debe ser superior o igual a 1";
@@ -400,8 +380,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
         String textErrorEsperado = "El valor debe ser inferior o igual a 999";
         assertEquals(textErrorEsperado,textErrorActual,() -> "El precio es menor de 1000");
@@ -421,8 +399,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-price");
         String textErrorEsperado = "Completa este campo";
@@ -444,8 +420,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
         String textErrorEsperado = "El valor debe ser superior o igual a 1";
         assertEquals(textErrorEsperado,textErrorActual,() -> "El PRM es mayor a 1");
@@ -465,8 +439,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
         String textErrorEsperado = "El valor debe ser inferior o igual a 500";
@@ -488,8 +460,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-mrp");
         String textErrorEsperado = "Completa este campo";
         assertEquals(textErrorEsperado,textErrorActual,() -> "El PRM del medicamento no es nulo");
@@ -509,8 +479,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
         String textErrorEsperado = "El valor debe ser superior o igual a 100000";
@@ -532,8 +500,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
         String textErrorEsperado = "El valor debe ser inferior o igual a 999999";
         assertEquals(textErrorEsperado,textErrorActual,() -> "El No de Lote es menor de 999999");
@@ -553,8 +519,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-bno");
         String textErrorEsperado = "Completa este campo";
@@ -576,7 +540,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
         Calendar c = Calendar.getInstance();
         String dia = Integer.toString(c.get(Calendar.DATE));
         String mes = Integer.toString(c.get(Calendar.MONTH)+1);
@@ -602,8 +565,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
 
-        esperar(3000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-expdate");
         String textErrorEsperado = "El valor debe ser 31/12/2030 o anterior";
         assertEquals(textErrorEsperado,textErrorActual,() -> "La fecha de expiracion es menor de 31/12/2030");
@@ -623,8 +584,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-expdate");
         String textErrorEsperado = "Completa este campo";
@@ -646,8 +605,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-brandName");
         String textErrorEsperado = "Selecciona un elemento de la lista";
         assertEquals(textErrorEsperado,textErrorActual,() -> "Se selecciono un elemento de la lista");
@@ -668,8 +625,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
-
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-categoryName");
         String textErrorEsperado = "Selecciona un elemento de la lista";
         assertEquals(textErrorEsperado,textErrorActual,() -> "Se selecciono un elemento de la lista");
@@ -689,8 +644,6 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setCategoryName("Vacunas");
         //agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
-
-        esperar(1000);
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-productStatus");
         String textErrorEsperado = "Selecciona un elemento de la lista";
