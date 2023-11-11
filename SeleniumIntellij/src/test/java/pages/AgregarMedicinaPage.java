@@ -33,9 +33,10 @@ public class AgregarMedicinaPage {
     }
 
     public void setMedicineImage(String pathImage) {
+        String rutaActual = System.getProperty("user.dir");
         WebElement medicineImageField = driver.findElement(medicineImageFieldLocator);
         medicineImageField.clear();
-        medicineImageField.sendKeys(pathImage);
+        medicineImageField.sendKeys(rutaActual + "/src/test/resources/images/" +pathImage);
     }
 
     public void setMedicineName(String name) {

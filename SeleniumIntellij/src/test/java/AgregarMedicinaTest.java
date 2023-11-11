@@ -64,7 +64,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP01_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("50");
         agregarMedicinaPage.setUnitQuantity("25");
@@ -86,7 +86,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP02_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("10");
@@ -119,7 +119,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image-6mb.jpg");
+        agregarMedicinaPage.setMedicineImage("image-6mb.jpg");
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
         String textErrorEsperado = "El tamaño de la imagen es demasiado grande. Por favor, elige una imagen más pequeña.";
@@ -139,7 +139,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\image.gif");
+        agregarMedicinaPage.setMedicineImage("image-4mb.gif");
 
         String textErrorActual = agregarMedicinaPage.getErrorMessage("missing-image");
         String textErrorEsperado = "Solo se permiten archivos con extensiones .jpg, .jpeg o .png.";
@@ -167,7 +167,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP06_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("NO");
         agregarMedicinaPage.setQuantity("50");
         agregarMedicinaPage.setUnitQuantity("25");
@@ -187,7 +187,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP07_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("10");
@@ -207,7 +207,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP08_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         //agregarMedicinaPage.setMedicineName(null);
         agregarMedicinaPage.setQuantity("100");
         agregarMedicinaPage.setUnitQuantity("600");
@@ -227,7 +227,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP09_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("0");
         agregarMedicinaPage.setUnitQuantity("30");
@@ -247,7 +247,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP010_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("1000");
         agregarMedicinaPage.setUnitQuantity("47");
@@ -267,7 +267,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP011_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         //agregarMedicinaPage.setQuantity("1000");
         agregarMedicinaPage.setUnitQuantity("98");
@@ -287,7 +287,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP012_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("0");
@@ -307,7 +307,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP013_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("100");
         agregarMedicinaPage.setUnitQuantity("1000");
@@ -327,7 +327,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP014_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("150");
         //agregarMedicinaPage.setUnitQuantity("98");
@@ -347,7 +347,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP015_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("45");
         agregarMedicinaPage.setUnitQuantity("25");
@@ -367,7 +367,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP016_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("50");
         agregarMedicinaPage.setUnitQuantity("10");
@@ -387,7 +387,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP017_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("600");
@@ -407,7 +407,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP018_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("100");
         agregarMedicinaPage.setUnitQuantity("30");
@@ -427,7 +427,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP019_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("150");
         agregarMedicinaPage.setUnitQuantity("47");
@@ -447,7 +447,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP020_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("45");
         agregarMedicinaPage.setUnitQuantity("25");
@@ -467,7 +467,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP21_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("50");
         agregarMedicinaPage.setUnitQuantity("10");
@@ -487,7 +487,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP22_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("600");
@@ -507,7 +507,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP23_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("100");
         agregarMedicinaPage.setUnitQuantity("30");
@@ -527,7 +527,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP24_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("150");
         agregarMedicinaPage.setUnitQuantity("47");
@@ -552,7 +552,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP25_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("45");
         agregarMedicinaPage.setUnitQuantity("25");
@@ -572,7 +572,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP26_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("50");
         agregarMedicinaPage.setUnitQuantity("10");
@@ -592,7 +592,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP27_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-2mb.png");
         agregarMedicinaPage.setMedicineName("Amoxicilina 100gr");
         agregarMedicinaPage.setQuantity("30");
         agregarMedicinaPage.setUnitQuantity("600");
@@ -612,7 +612,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP28_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-4mb.jpg");
         agregarMedicinaPage.setMedicineName("Levotiroxina 100gr");
         agregarMedicinaPage.setQuantity("100");
         agregarMedicinaPage.setUnitQuantity("30");
@@ -632,7 +632,7 @@ public class AgregarMedicinaTest {
 
     @Test
     void CP29_Test(){
-        agregarMedicinaPage.setMedicineImage("C:\\Users\\USER\\Pictures\\generico.jpg");
+        agregarMedicinaPage.setMedicineImage("image-3mb.jpg");
         agregarMedicinaPage.setMedicineName("Naproxeno 100gr");
         agregarMedicinaPage.setQuantity("150");
         agregarMedicinaPage.setUnitQuantity("47");
