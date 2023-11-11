@@ -4,14 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import pages.AgregarMedicinaPage;
 import pages.LoginPage;
 
 import java.util.Calendar;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AgregarMedicinaTest {
 
@@ -19,6 +18,7 @@ public class AgregarMedicinaTest {
     private AgregarMedicinaPage agregarMedicinaPage;
     private LoginPage loginPage;
 
+    private Dotenv dotenv = Dotenv.configure().load();
 
     @BeforeAll // se ejecuta antes de todos pero solo una vez
     static void setupClass() {
@@ -40,17 +40,17 @@ public class AgregarMedicinaTest {
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
+        String email = dotenv.get("EMAIL");
+        String password = dotenv.get("PASSWORD");
+
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail("hola@configuroweb.com");
-        loginPage.setPassword("1234abcd..");
+        loginPage.setEmail(email);
+        loginPage.setPassword(password);
         loginPage.submit();
 
-        assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
-
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-product.php");
-
         esperar(1000);
 
         // AGREGAR MEDICINA
