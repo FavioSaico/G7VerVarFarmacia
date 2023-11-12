@@ -1,7 +1,5 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.AgregarMedicinaPage;
@@ -9,6 +7,8 @@ import pages.LoginPage;
 
 import java.util.Calendar;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,14 +17,13 @@ public class AgregarMedicinaTest {
     private WebDriver driver;
     private AgregarMedicinaPage agregarMedicinaPage;
     private LoginPage loginPage;
-
     private Dotenv dotenv = Dotenv.configure().load();
 
-    @BeforeAll // se ejecuta antes de todos pero solo una vez
+    /*@BeforeAll // se ejecuta antes de todos pero solo una vez
     static void setupClass() {
         //WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
-    }
+        //System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
+    }*/
 
     public void esperar(int tiempo){
         try {
@@ -36,7 +35,10 @@ public class AgregarMedicinaTest {
 
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = new ChromeDriver();
+        driver = WebDriverManager.getInstance("chrome").create();
+        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("firefox").create();
+
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
