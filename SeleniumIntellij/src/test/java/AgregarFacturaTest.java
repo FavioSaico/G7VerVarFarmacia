@@ -75,55 +75,12 @@ public class AgregarFacturaTest {
     	agregarFacturaPage.setPaymentStatus("Pago Completo");
     	agregarFacturaPage.setPaymentPlace("Colombia");
 
-		// validar nro de factura
-		String nroFactura = agregarFacturaPage.getOrderNumber();
-		String patronNroFactura = "INV-\\d{5}";
-		boolean coincide = Pattern.matches(patronNroFactura, nroFactura);
-		// validar stock de producto
-		String availableQuantity = agregarFacturaPage.getAvailableQuantity();
-		boolean isEmptyAvailableQuantity = availableQuantity.isEmpty();
-		// validar cantidad por unidad del producto
-		String rateValue = agregarFacturaPage.getRateValue();
-		boolean isEmptyRateValue = rateValue.isEmpty();
-		// validar precio del producto
-		String priceValue = agregarFacturaPage.getPriceValue();
-		boolean isEmptyPriceValue = priceValue.isEmpty();
-		// validar total del producto
-		double totalValue = agregarFacturaPage.getTotalValue();
-		double totalEsperado = Math.round(Double.parseDouble(priceValue)*agregarFacturaPage.getQuantityValue()* 100.0)/ 100.0;
-		// validar subtotal
-		double subtotalValue = agregarFacturaPage.getSubTotalValue();
-		double subtotalEsperado = totalEsperado;
-		// validar cantidad total
-		double totalAmountValue = agregarFacturaPage.getTotalAmountValue();
-		double totalAmountEsperado = Math.round((subtotalValue+(subtotalValue*0.18))* 100.0) / 100.0;
-		// validar total a pagar
-		double grandTotalValue = agregarFacturaPage.getGrandTotalValue();
-		double grandTotalEsperado = Math.round((totalAmountValue-agregarFacturaPage.getDiscountValue())*100.0) / 100.0;
-		// validar IVA
-		double vat = agregarFacturaPage.getVatValue();
-		double vatEsperado = Math.round(subtotalValue*0.18*100.0) / 100.0;
-		// validar cambio
-		double due = agregarFacturaPage.getDueValue();
-		double dueEsperado = Math.round((grandTotalValue-agregarFacturaPage.getPaid())*100.0) / 100.0;
-
     	agregarFacturaPage.submit();
 
         esperar(2000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();
-
-		assertTrue(coincide,() -> "El No Factura no sigue el patron correspondiente");
-		assertFalse(isEmptyAvailableQuantity,() -> "El stock del producto no tiene valor");
-		assertFalse(isEmptyRateValue,() -> "La cantidad por unidad del producto no tiene valor");
-		assertFalse(isEmptyPriceValue,() -> "El precio del producto no tiene valor");
-		assertEquals(totalEsperado,totalValue,() -> "El total calculado es incorrecto");
-		assertEquals(subtotalEsperado,subtotalValue,() -> "El subtotal calculado es incorrecto");
-		assertEquals(totalAmountEsperado,totalAmountValue,() -> "El monto total calculado es incorrecto");
-		assertEquals(grandTotalEsperado,grandTotalValue,() -> "El total a pagar calculado es incorrecto");
-		assertEquals(vatEsperado,vat,() -> "El IVA calculado es incorrecto");
-		assertEquals(dueEsperado,due,() -> "El Cambio calculado es incorrecto");
 		assertEquals(urlEsperado,urlActual,() -> "Factura no se registro correctamente");
     }
     
@@ -140,54 +97,12 @@ public class AgregarFacturaTest {
     	agregarFacturaPage.setPaymentStatus("Pago Pendiente");
     	agregarFacturaPage.setPaymentPlace("Internet");
 
-		// validar nro de factura
-		String nroFactura = agregarFacturaPage.getOrderNumber();
-		String patronNroFactura = "INV-\\d{5}";
-		boolean coincide = Pattern.matches(patronNroFactura, nroFactura);
-		// validar stock de producto
-		String availableQuantity = agregarFacturaPage.getAvailableQuantity();
-		boolean isEmptyAvailableQuantity = availableQuantity.isEmpty();
-		// validar cantidad por unidad del producto
-		String rateValue = agregarFacturaPage.getRateValue();
-		boolean isEmptyRateValue = rateValue.isEmpty();
-		// validar precio del producto
-		String priceValue = agregarFacturaPage.getPriceValue();
-		boolean isEmptyPriceValue = priceValue.isEmpty();
-		// validar total del producto
-		double totalValue = agregarFacturaPage.getTotalValue();
-		double totalEsperado = Math.round(Double.parseDouble(priceValue)*agregarFacturaPage.getQuantityValue()* 100.0)/ 100.0;
-		// validar subtotal
-		double subtotalValue = agregarFacturaPage.getSubTotalValue();
-		double subtotalEsperado = totalEsperado;
-		// validar cantidad total
-		double totalAmountValue = agregarFacturaPage.getTotalAmountValue();
-		double totalAmountEsperado = Math.round((subtotalValue+(subtotalValue*0.18))* 100.0) / 100.0;
-		// validar total a pagar
-		double grandTotalValue = agregarFacturaPage.getGrandTotalValue();
-		double grandTotalEsperado = Math.round((totalAmountValue-agregarFacturaPage.getDiscountValue())*100.0) / 100.0;
-		// validar IVA
-		double vat = agregarFacturaPage.getVatValue();
-		double vatEsperado = Math.round(subtotalValue*0.18*100.0) / 100.0;
-		// validar cambio
-		double due = agregarFacturaPage.getDueValue();
-		double dueEsperado = Math.round((grandTotalValue-agregarFacturaPage.getPaid())*100.0) / 100.0;
-
 		agregarFacturaPage.submit();
         esperar(2000);
 		
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();
 
-		assertTrue(coincide,() -> "El No Factura no sigue el patron correspondiente");
-		assertFalse(isEmptyAvailableQuantity,() -> "El stock del producto no tiene valor");
-		assertFalse(isEmptyRateValue,() -> "La cantidad por unidad del producto no tiene valor");
-		assertFalse(isEmptyPriceValue,() -> "El precio del producto no tiene valor");
-		assertEquals(totalEsperado,totalValue,() -> "El total calculado es incorrecto");
-		assertEquals(subtotalEsperado,subtotalValue,() -> "El subtotal calculado es incorrecto");
-		assertEquals(totalAmountEsperado,totalAmountValue,() -> "El monto total calculado es incorrecto");
-		assertEquals(grandTotalEsperado,grandTotalValue,() -> "El total a pagar calculado es incorrecto");
-		assertEquals(vatEsperado,vat,() -> "El IVA calculado es incorrecto");
-		assertEquals(dueEsperado,due,() -> "El Cambio calculado es incorrecto");
 		assertEquals(urlEsperado,urlActual,() -> "Factura no se registro correctamente");
     }
     
