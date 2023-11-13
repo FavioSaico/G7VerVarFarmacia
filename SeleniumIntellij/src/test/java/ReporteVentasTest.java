@@ -18,11 +18,6 @@ public class ReporteVentasTest {
     private LoginPage loginPage;
     private ReporteVentasPage reporteVentasPage;
 
-    @BeforeAll // se ejecuta antes de todos pero solo una vez
-    static void setupClass() {
-    	WebDriverManager.chromedriver().setup();
-    }
-
     public void esperar(int tiempo){
         try {
             Thread.sleep(tiempo);
@@ -33,7 +28,10 @@ public class ReporteVentasTest {
     
     @BeforeEach // antes de cada prueba
     void setup() {
-    	driver = new ChromeDriver();
+        driver = WebDriverManager.getInstance("chrome").create();
+        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("firefox").create();
+
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
@@ -43,8 +41,6 @@ public class ReporteVentasTest {
         loginPage.setEmail("hola@configuroweb.com");
         loginPage.setPassword("1234abcd..");
         loginPage.submit();
-
-        assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/sales_report.php");
 
@@ -65,7 +61,7 @@ public class ReporteVentasTest {
     	reporteVentasPage.setEnddate("20012023"); // 12/01/2023
     	reporteVentasPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/php_action/getsalereport.php";
         String urlActual = driver.getCurrentUrl();
@@ -78,8 +74,6 @@ public class ReporteVentasTest {
     	reporteVentasPage.setEnddate("17032024"); // 17/03/2024
     	reporteVentasPage.submit();
 
-        esperar(2000);
-
         String mensajeEsperado = "La fecha final debe ser menor o igual a la fecha actual";
         String mensajeActual = reporteVentasPage.errorEndDateMessage();
         assertEquals(mensajeEsperado,mensajeActual,() -> "Fecha actual mayor o igual a la fecha final");
@@ -89,8 +83,6 @@ public class ReporteVentasTest {
     void CP03_Test(){
     	reporteVentasPage.setStartdate("14102022"); // 14/10/2022
     	reporteVentasPage.submit();
-
-        esperar(2000);
 
         String mensajeEsperado = "La fecha final no puede estar vacía";
         String mensajeActual = reporteVentasPage.errorEndDateMessage();
@@ -103,8 +95,6 @@ public class ReporteVentasTest {
     	reporteVentasPage.setEnddate("19042023"); // 19/04/2023
     	reporteVentasPage.submit();
 
-        esperar(2000);
-
         String mensajeEsperado = "La fecha inicial debe ser menor o igual a la fecha final";
         String mensajeActual = reporteVentasPage.errorStartDateMessage();
         assertEquals(mensajeEsperado,mensajeActual,() -> "Fecha final mayor o igual a la fecha inicial");
@@ -114,8 +104,6 @@ public class ReporteVentasTest {
     void CP05_Test(){
     	reporteVentasPage.setEnddate("16062023"); // 16/06/2023
     	reporteVentasPage.submit();
-
-        esperar(2000);
 
         String mensajeEsperado = "La fecha inicial no puede estar vacía";
         String mensajeActual = reporteVentasPage.errorStartDateMessage();

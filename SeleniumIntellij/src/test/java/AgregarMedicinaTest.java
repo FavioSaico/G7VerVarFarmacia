@@ -19,12 +19,6 @@ public class AgregarMedicinaTest {
     private LoginPage loginPage;
     private Dotenv dotenv = Dotenv.configure().load();
 
-    /*@BeforeAll // se ejecuta antes de todos pero solo una vez
-    static void setupClass() {
-        //WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
-    }*/
-
     public void esperar(int tiempo){
         try {
             Thread.sleep(tiempo);
@@ -79,7 +73,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/product.php";
         String urlActual = driver.getCurrentUrl();
@@ -101,7 +95,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/product.php";
         String urlActual = driver.getCurrentUrl();

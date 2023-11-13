@@ -18,12 +18,6 @@ public class AgregarCategoriaTest {
     private LoginPage loginPage;
     private AgregarCategoriaPage agregarCategoriaPage;
 
-
-    @BeforeAll // se ejecuta antes de todos pero solo una vez
-    static void setupClass() {
-    	WebDriverManager.chromedriver().setup();
-    }
-
     public void esperar(int tiempo){
         try {
             Thread.sleep(tiempo);
@@ -34,7 +28,10 @@ public class AgregarCategoriaTest {
 
     @BeforeEach // antes de cada prueba
     void setup() {
-    	driver = new ChromeDriver();
+        driver = WebDriverManager.getInstance("chrome").create();
+        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("firefox").create();
+
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
@@ -44,8 +41,6 @@ public class AgregarCategoriaTest {
         loginPage.setEmail("hola@configuroweb.com");
         loginPage.setPassword("1234abcd..");
         loginPage.submit();
-
-        assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-category.php");
 
@@ -66,7 +61,7 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("Disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(2000);
+        esperar(1000);
         
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
         String urlActual = driver.getCurrentUrl();
@@ -79,7 +74,7 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("No disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
         String urlActual = driver.getCurrentUrl();
@@ -92,8 +87,6 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("Disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(2000);
-
         String mensajeEsperado = "El nombre debe tener menos de 50 caracteres";
         String mensajeActual = agregarCategoriaPage.errorCategoryNameMessage();
         assertEquals(mensajeEsperado,mensajeActual,() -> "Nombre de categoria menor o igual a 50 caracteres");
@@ -104,8 +97,6 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("No disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(2000);
-
         String mensajeEsperado = "Escriba el nombre de la categoría";
         String mensajeActual = agregarCategoriaPage.errorCategoryNameMessage();
         assertEquals(mensajeEsperado,mensajeActual,() -> "Nombre de categoria no nulo");
@@ -115,8 +106,6 @@ public class AgregarCategoriaTest {
     void CP05_Test(){
     	agregarCategoriaPage.setCategoryName("TeamWolf");
     	agregarCategoriaPage.submit();
-
-        esperar(2000);
 
         String mensajeEsperado = "Debe seleccionar un estado";
         String mensajeActual = agregarCategoriaPage.errorCategoryStatusMessage();

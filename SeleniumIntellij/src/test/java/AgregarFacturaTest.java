@@ -19,13 +19,6 @@ public class AgregarFacturaTest {
     private AgregarFacturaPage agregarFacturaPage;
     private LoginPage loginPage;
 
-
-    @BeforeAll // se ejecuta antes de todos pero solo una vez
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver.exe");
-    }
-
     public void esperar(int tiempo){
         try {
             Thread.sleep(tiempo);
@@ -36,7 +29,10 @@ public class AgregarFacturaTest {
 
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = new ChromeDriver();
+		driver = WebDriverManager.getInstance("chrome").create();
+		//driver = WebDriverManager.getInstance("edge").create();
+		//driver = WebDriverManager.getInstance("firefox").create();
+
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
@@ -77,7 +73,7 @@ public class AgregarFacturaTest {
 
     	agregarFacturaPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();
@@ -98,7 +94,7 @@ public class AgregarFacturaTest {
     	agregarFacturaPage.setPaymentPlace("Internet");
 
 		agregarFacturaPage.submit();
-        esperar(2000);
+        esperar(1000);
 		
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
         String urlActual = driver.getCurrentUrl();

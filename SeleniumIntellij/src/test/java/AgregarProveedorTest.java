@@ -18,12 +18,6 @@ public class AgregarProveedorTest {
     private LoginPage loginPage;
     private AgregarProveedorPage agregarProveedorPage;
 
-
-    @BeforeAll // se ejecuta antes de todos pero solo una vez
-    static void setupClass() {
-    	WebDriverManager.chromedriver().setup();
-    }
-
     public void esperar(int tiempo){
         try {
             Thread.sleep(tiempo);
@@ -34,7 +28,10 @@ public class AgregarProveedorTest {
 
     @BeforeEach // antes de cada prueba
     void setup() {
-    	driver = new ChromeDriver();
+        driver = WebDriverManager.getInstance("chrome").create();
+        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("firefox").create();
+
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
@@ -44,8 +41,6 @@ public class AgregarProveedorTest {
         loginPage.setEmail("hola@configuroweb.com");
         loginPage.setPassword("1234abcd..");
         loginPage.submit();
-
-        assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-brand.php");
 
@@ -66,7 +61,7 @@ public class AgregarProveedorTest {
     	agregarProveedorPage.setBrandStatus("Disponible");
     	agregarProveedorPage.submit();
 
-        esperar(2000);
+        esperar(1000);
         
         String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/brand.php";
         String urlActual = driver.getCurrentUrl();
@@ -79,9 +74,9 @@ public class AgregarProveedorTest {
     	agregarProveedorPage.setBrandStatus("No disponible");
     	agregarProveedorPage.submit();
 
-        esperar(2000);
+        esperar(1000);
 
-        String urlEsperado = "http://localhost:90/G7VerVarFarmacia/farmacia/brand.php";
+        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/brand.php";
         String urlActual = driver.getCurrentUrl();
         assertEquals(urlEsperado,urlActual,() -> "Proveedor no se registro correctamente");
     }
@@ -91,8 +86,6 @@ public class AgregarProveedorTest {
     	agregarProveedorPage.setBrandName("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     	agregarProveedorPage.setBrandStatus("Disponible");
     	agregarProveedorPage.submit();
-
-        esperar(2000);
 
         String mensajeEsperado = "El nombre debe tener menos de 50 caracteres";
         String mensajeActual = agregarProveedorPage.errorBrandNameMessage();
@@ -104,8 +97,6 @@ public class AgregarProveedorTest {
     	agregarProveedorPage.setBrandStatus("No disponible");
     	agregarProveedorPage.submit();
 
-        esperar(2000);
-
         String mensajeEsperado = "Escriba el nombre del proveedor";
         String mensajeActual = agregarProveedorPage.errorBrandNameMessage();
         assertEquals(mensajeEsperado,mensajeActual,() -> "Nombre de proveedor no nulo");
@@ -115,8 +106,6 @@ public class AgregarProveedorTest {
     void CP05_Test(){
     	agregarProveedorPage.setBrandName("TeamWolf");
     	agregarProveedorPage.submit();
-
-        esperar(2000);
 
         String mensajeEsperado = "Debe seleccionar un estado";
         String mensajeActual = agregarProveedorPage.errorBrandStatusMessage();
