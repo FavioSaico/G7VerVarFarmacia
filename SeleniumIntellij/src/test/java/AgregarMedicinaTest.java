@@ -31,14 +31,11 @@ public class AgregarMedicinaTest {
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
 
-        String email = dotenv.get("EMAIL");
-        String password = dotenv.get("PASSWORD");
-
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail(email);
-        loginPage.setPassword(password);
+        loginPage.setEmail(dotenv.get("EMAIL"));
+        loginPage.setPassword(dotenv.get("PASSWORD"));
         loginPage.submit();
 
         waiter = new WebDriverWait(driver, Duration.ofSeconds(3));

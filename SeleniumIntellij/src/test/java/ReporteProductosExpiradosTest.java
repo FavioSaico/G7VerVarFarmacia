@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +7,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.ReporteProductosExpiradosPage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,14 +22,8 @@ public class ReporteProductosExpiradosTest {
     private WebDriver driver;
     private LoginPage loginPage;
     private ReporteProductosExpiradosPage reporteProductosExpiradosPage;
-
-    public void esperar(int tiempo){
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private Dotenv dotenv = Dotenv.configure().load();
+    private WebDriverWait waiter;
     
     @BeforeEach // antes de cada prueba
     void setup() {
@@ -38,15 +37,15 @@ public class ReporteProductosExpiradosTest {
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail("hola@configuroweb.com");
-        loginPage.setPassword("1234abcd..");
+        loginPage.setEmail(dotenv.get("EMAIL"));
+        loginPage.setPassword(dotenv.get("PASSWORD"));
         loginPage.submit();
 
-        driver.get("http://localhost/G7VerVarFarmacia/farmacia/expreport.php");
-
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/dashboard.php"));
 
         // REPORTE DE VENTAS
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/expreport.php");
         reporteProductosExpiradosPage = new ReporteProductosExpiradosPage(driver);
     }
 
@@ -61,11 +60,10 @@ public class ReporteProductosExpiradosTest {
     	reporteProductosExpiradosPage.setEnddate("20012023"); // 12/01/2023
     	reporteProductosExpiradosPage.submit();
 
-        esperar(2000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isGenerated = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/getproductreport.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/getproductreport.php";
-        String urlActual = driver.getCurrentUrl();
-        assertEquals(urlEsperado,urlActual,() -> "Reporte de productos expirados no generado");
+        assertTrue(isGenerated,() -> "Reporte de productos expirados no generado");
     }
 
     @Test

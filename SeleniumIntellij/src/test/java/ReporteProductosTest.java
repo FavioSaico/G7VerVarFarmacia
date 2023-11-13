@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +7,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.ReporteProductosPage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,19 +22,13 @@ public class ReporteProductosTest {
     private WebDriver driver;
     private LoginPage loginPage;
     private ReporteProductosPage reporteProductosPage;
-
-    public void esperar(int tiempo){
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private Dotenv dotenv = Dotenv.configure().load();
+    private WebDriverWait waiter;
     
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
-        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("chrome").create();
+        driver = WebDriverManager.getInstance("edge").create();
         //driver = WebDriverManager.getInstance("firefox").create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
@@ -38,15 +37,15 @@ public class ReporteProductosTest {
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail("hola@configuroweb.com");
-        loginPage.setPassword("1234abcd..");
+        loginPage.setEmail(dotenv.get("EMAIL"));
+        loginPage.setPassword(dotenv.get("PASSWORD"));
         loginPage.submit();
 
-        driver.get("http://localhost/G7VerVarFarmacia/farmacia/productreport.php");
-
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/dashboard.php"));
 
         // REPORTE DE VENTAS
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/productreport.php");
         reporteProductosPage = new ReporteProductosPage(driver);
     }
 
@@ -61,11 +60,10 @@ public class ReporteProductosTest {
     	reporteProductosPage.setEnddate("20012023"); // 12/01/2023
     	reporteProductosPage.submit();
 
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isGenerated = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/getproductreport.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/getproductreport.php";
-        String urlActual = driver.getCurrentUrl();
-        assertEquals(urlEsperado,urlActual,() -> "Reporte de productos no generado");
+        assertTrue(isGenerated,() -> "Reporte de productos no generado");
     }
 
     @Test

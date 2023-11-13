@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +7,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.AgregarCategoriaPage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,14 +22,8 @@ public class AgregarCategoriaTest {
     private WebDriver driver;
     private LoginPage loginPage;
     private AgregarCategoriaPage agregarCategoriaPage;
-
-    public void esperar(int tiempo){
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private WebDriverWait waiter;
+    private Dotenv dotenv = Dotenv.configure().load();
 
     @BeforeEach // antes de cada prueba
     void setup() {
@@ -38,15 +37,15 @@ public class AgregarCategoriaTest {
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail("hola@configuroweb.com");
-        loginPage.setPassword("1234abcd..");
+        loginPage.setEmail(dotenv.get("EMAIL"));
+        loginPage.setPassword(dotenv.get("PASSWORD"));
         loginPage.submit();
 
-        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-category.php");
-
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/dashboard.php"));
 
         // AGREGAR CATEGORIA
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-category.php");
         agregarCategoriaPage = new AgregarCategoriaPage(driver);
     }
 
@@ -61,11 +60,10 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("Disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(1000);
-        
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
-        String urlActual = driver.getCurrentUrl();
-        assertEquals(urlEsperado,urlActual,() -> "Categoria no se registro correctamente");
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/categories.php"));
+
+        assertTrue(isRegistered,() -> "Categoria no se registro correctamente");
     }
 
     @Test
@@ -74,11 +72,10 @@ public class AgregarCategoriaTest {
     	agregarCategoriaPage.setCategoryStatus("No disponible");
     	agregarCategoriaPage.submit();
 
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/categories.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/categories.php";
-        String urlActual = driver.getCurrentUrl();
-        assertEquals(urlEsperado,urlActual,() -> "Categoria no se registro correctamente");
+        assertTrue(isRegistered,() -> "Categoria no se registro correctamente");
     }
 
     @Test

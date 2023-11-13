@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,9 +7,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.AgregarFacturaPage;
 
+import java.time.Duration;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,14 +22,8 @@ public class AgregarFacturaTest {
     private WebDriver driver;
     private AgregarFacturaPage agregarFacturaPage;
     private LoginPage loginPage;
-
-    public void esperar(int tiempo){
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+	private Dotenv dotenv = Dotenv.configure().load();
+	private WebDriverWait waiter;
 
     @BeforeEach // antes de cada prueba
     void setup() {
@@ -39,17 +37,17 @@ public class AgregarFacturaTest {
         // LOGIN
         loginPage = new LoginPage(driver);
 
-        loginPage.setEmail("hola@configuroweb.com");
-        loginPage.setPassword("1234abcd..");
+		loginPage.setEmail(dotenv.get("EMAIL"));
+		loginPage.setPassword(dotenv.get("PASSWORD"));
         loginPage.submit();
 
         //assertTrue(loginPage.isSuccessMessageDisplayed(), "No se logro el Logeado");
 
-        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-order.php");
-
-        esperar(1000);
+		waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+		waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/dashboard.php"));
 
         // AGREGAR FACTURA
+		driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-order.php");
         agregarFacturaPage = new AgregarFacturaPage(driver);
     }
 
@@ -73,11 +71,10 @@ public class AgregarFacturaTest {
 
     	agregarFacturaPage.submit();
 
-        esperar(1000);
+		waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+		boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/Order.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
-        String urlActual = driver.getCurrentUrl();
-		assertEquals(urlEsperado,urlActual,() -> "Factura no se registro correctamente");
+		assertTrue(isRegistered,() -> "Factura no se registro correctamente");
     }
     
     @Test
@@ -94,12 +91,11 @@ public class AgregarFacturaTest {
     	agregarFacturaPage.setPaymentPlace("Internet");
 
 		agregarFacturaPage.submit();
-        esperar(1000);
-		
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/Order.php";
-        String urlActual = driver.getCurrentUrl();
 
-		assertEquals(urlEsperado,urlActual,() -> "Factura no se registro correctamente");
+		waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+		boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/Order.php"));
+
+		assertTrue(isRegistered,() -> "Factura no se registro correctamente");
     }
     
     @Test
