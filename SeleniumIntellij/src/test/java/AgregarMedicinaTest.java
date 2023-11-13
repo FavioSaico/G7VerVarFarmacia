@@ -2,15 +2,17 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AgregarMedicinaPage;
 import pages.LoginPage;
 
+import java.time.Duration;
 import java.util.Calendar;
 import io.github.cdimascio.dotenv.Dotenv;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AgregarMedicinaTest {
 
@@ -18,19 +20,12 @@ public class AgregarMedicinaTest {
     private AgregarMedicinaPage agregarMedicinaPage;
     private LoginPage loginPage;
     private Dotenv dotenv = Dotenv.configure().load();
-
-    public void esperar(int tiempo){
-        try {
-            Thread.sleep(tiempo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private WebDriverWait waiter;
 
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
-        //driver = WebDriverManager.getInstance("edge").create();
+        //driver = WebDriverManager.getInstance("chrome").create();
+        driver = WebDriverManager.getInstance("edge").create();
         //driver = WebDriverManager.getInstance("firefox").create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
@@ -46,10 +41,11 @@ public class AgregarMedicinaTest {
         loginPage.setPassword(password);
         loginPage.submit();
 
-        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-product.php");
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/dashboard.php"));
 
         // AGREGAR MEDICINA
+        driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-product.php");
         agregarMedicinaPage = new AgregarMedicinaPage(driver);
     }
 
@@ -73,11 +69,11 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("Disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/product.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/product.php";
-        String urlActual = driver.getCurrentUrl();
-        assertEquals(urlEsperado,urlActual,() -> "Medicamento no se registro correctamente");
+        // verificamos el cambio de url
+        assertTrue(isRegistered,() -> "Medicamento no se registro correctamente");
     }
 
     @Test
@@ -95,12 +91,11 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setProductStatus("No disponible");
         agregarMedicinaPage.submit();
 
-        esperar(1000);
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
+        boolean isRegistered = waiter.until(ExpectedConditions.urlToBe("http://localhost/G7VerVarFarmacia/farmacia/product.php"));
 
-        String urlEsperado = "http://localhost/G7VerVarFarmacia/farmacia/product.php";
-        String urlActual = driver.getCurrentUrl();
         // verificamos el cambio de url
-        assertEquals(urlEsperado,urlActual,() -> "Medicamento no se registro correctamente");
+        assertTrue(isRegistered,() -> "Medicamento no se registro correctamente");
     }
 
     @Test
