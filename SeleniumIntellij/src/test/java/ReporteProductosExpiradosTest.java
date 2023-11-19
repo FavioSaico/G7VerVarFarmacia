@@ -13,6 +13,7 @@ import pages.LoginPage;
 import pages.ReporteProductosExpiradosPage;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,12 +25,11 @@ public class ReporteProductosExpiradosTest {
     private ReporteProductosExpiradosPage reporteProductosExpiradosPage;
     private Dotenv dotenv = Dotenv.configure().load();
     private WebDriverWait waiter;
+    private String navegador = "firefox"; // "edge", "firefox" y "chrome"
     
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
-        //driver = WebDriverManager.getInstance("edge").create();
-        //driver = WebDriverManager.getInstance("firefox").create();
+        driver = WebDriverManager.getInstance(navegador).create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
@@ -47,6 +47,8 @@ public class ReporteProductosExpiradosTest {
         // REPORTE DE VENTAS
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/expreport.php");
         reporteProductosExpiradosPage = new ReporteProductosExpiradosPage(driver);
+
+        waiter.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
     }
 
     @AfterEach
@@ -56,8 +58,8 @@ public class ReporteProductosExpiradosTest {
 
     @Test
     void CP01_Test(){
-    	reporteProductosExpiradosPage.setStartdate("11122021"); // 11/12/2021
-    	reporteProductosExpiradosPage.setEnddate("20012023"); // 12/01/2023
+    	reporteProductosExpiradosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2021-12-11":"11/12/2021"); // 11/12/2021
+    	reporteProductosExpiradosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2023-01-20":"20/01/2023"); // 20/01/2023
     	reporteProductosExpiradosPage.submit();
 
         waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
@@ -68,8 +70,8 @@ public class ReporteProductosExpiradosTest {
 
     @Test
     void CP02_Test(){
-    	reporteProductosExpiradosPage.setStartdate("14102022"); // 14/10/2022
-    	reporteProductosExpiradosPage.setEnddate("17032024"); // 17/03/2024
+    	reporteProductosExpiradosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2022-10-14":"14/10/2022"); // 14/10/2022
+    	reporteProductosExpiradosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2024-03-17":"17/03/2024"); // 17/03/2024
     	reporteProductosExpiradosPage.submit();
 
         String mensajeEsperado = "La fecha final debe ser menor o igual a la fecha actual";
@@ -79,7 +81,7 @@ public class ReporteProductosExpiradosTest {
     
     @Test
     void CP03_Test(){
-    	reporteProductosExpiradosPage.setStartdate("14102022"); // 14/10/2022
+    	reporteProductosExpiradosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2022-10-14":"14/10/2022"); // 14/10/2022
     	reporteProductosExpiradosPage.submit();
 
         String mensajeEsperado = "La fecha final no puede estar vacía";
@@ -89,8 +91,8 @@ public class ReporteProductosExpiradosTest {
     
     @Test
     void CP04_Test(){
-    	reporteProductosExpiradosPage.setStartdate("15062023"); // 15/06/2023
-    	reporteProductosExpiradosPage.setEnddate("19042023"); // 19/04/2023
+    	reporteProductosExpiradosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2023-06-15":"15/06/2023"); // 15/06/2023
+    	reporteProductosExpiradosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2019-04-19":"19/04/2023"); // 19/04/2023
     	reporteProductosExpiradosPage.submit();
 
         String mensajeEsperado = "La fecha inicial debe ser menor o igual a la fecha final";
@@ -100,7 +102,7 @@ public class ReporteProductosExpiradosTest {
     
     @Test
     void CP05_Test(){
-    	reporteProductosExpiradosPage.setEnddate("16062023"); // 16/06/2023
+    	reporteProductosExpiradosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2023-06-16":"16/06/2023"); // 16/06/2023
     	reporteProductosExpiradosPage.submit();
 
         String mensajeEsperado = "La fecha inicial no puede estar vacía";

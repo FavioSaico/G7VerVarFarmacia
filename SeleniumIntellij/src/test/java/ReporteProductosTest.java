@@ -13,6 +13,7 @@ import pages.LoginPage;
 import pages.ReporteProductosPage;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,12 +25,11 @@ public class ReporteProductosTest {
     private ReporteProductosPage reporteProductosPage;
     private Dotenv dotenv = Dotenv.configure().load();
     private WebDriverWait waiter;
+    private String navegador = "firefox"; // "edge", "firefox" y "chrome"
     
     @BeforeEach // antes de cada prueba
     void setup() {
-        //driver = WebDriverManager.getInstance("chrome").create();
-        driver = WebDriverManager.getInstance("edge").create();
-        //driver = WebDriverManager.getInstance("firefox").create();
+        driver = WebDriverManager.getInstance(navegador).create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
@@ -47,6 +47,8 @@ public class ReporteProductosTest {
         // REPORTE DE VENTAS
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/productreport.php");
         reporteProductosPage = new ReporteProductosPage(driver);
+
+        waiter.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
     }
 
     @AfterEach
@@ -56,8 +58,8 @@ public class ReporteProductosTest {
 
     @Test
     void CP01_Test(){
-    	reporteProductosPage.setStartdate("11122021"); // 11/12/2021
-    	reporteProductosPage.setEnddate("20012023"); // 12/01/2023
+    	reporteProductosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2021-12-11":"11/12/2021"); // 11/12/2021
+    	reporteProductosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2023-01-20":"20/01/2023"); // 20/01/2023
     	reporteProductosPage.submit();
 
         waiter = new WebDriverWait(driver, Duration.ofSeconds(3));
@@ -68,8 +70,8 @@ public class ReporteProductosTest {
 
     @Test
     void CP02_Test(){
-    	reporteProductosPage.setStartdate("14102022"); // 14/10/2022
-    	reporteProductosPage.setEnddate("17032024"); // 17/03/2024
+    	reporteProductosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2022-10-14":"14/10/2022"); // 14/10/2022
+    	reporteProductosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2024-03-17":"17/03/2024"); // 17/03/2024
     	reporteProductosPage.submit();
 
         String mensajeEsperado = "La fecha final debe ser menor o igual a la fecha actual";
@@ -79,7 +81,7 @@ public class ReporteProductosTest {
     
     @Test
     void CP03_Test(){
-    	reporteProductosPage.setStartdate("14102022"); // 14/10/2022
+    	reporteProductosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2022-10-14":"14/10/2022"); // 14/10/2022
     	reporteProductosPage.submit();
 
         String mensajeEsperado = "La fecha final no puede estar vacía";
@@ -89,8 +91,8 @@ public class ReporteProductosTest {
     
     @Test
     void CP04_Test(){
-    	reporteProductosPage.setStartdate("15062023"); // 15/06/2023
-    	reporteProductosPage.setEnddate("19042023"); // 19/04/2023
+    	reporteProductosPage.setStartdate((Objects.equals(navegador, "firefox"))?"2023-06-15":"15/06/2023"); // 15/06/2023
+    	reporteProductosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2023-04-19":"19/04/2023"); // 19/04/2023
     	reporteProductosPage.submit();
 
         String mensajeEsperado = "La fecha inicial debe ser menor o igual a la fecha final";
@@ -100,7 +102,7 @@ public class ReporteProductosTest {
     
     @Test
     void CP05_Test(){
-    	reporteProductosPage.setEnddate("16062023"); // 16/06/2023
+    	reporteProductosPage.setEnddate((Objects.equals(navegador, "firefox"))?"2023-06-16":"16/06/2023"); // 16/06/2023
     	reporteProductosPage.submit();
 
         String mensajeEsperado = "La fecha inicial no puede estar vacía";

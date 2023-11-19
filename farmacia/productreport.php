@@ -57,8 +57,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <button type="submit" id="generateReportBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Generar Reporte</button>
+                                <div class="col-md-12 mx-auto d-flex justify-content-center">
+                                    <button type="submit" id="generateReportBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Generar Reporte</button>
+                                </div>
+                                
                             </form>
                         </div>
                     </div>

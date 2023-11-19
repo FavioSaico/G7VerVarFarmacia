@@ -9,6 +9,8 @@ import pages.LoginPage;
 
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.Objects;
+
 import io.github.cdimascio.dotenv.Dotenv;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,12 +23,11 @@ public class AgregarMedicinaTest {
     private LoginPage loginPage;
     private Dotenv dotenv = Dotenv.configure().load();
     private WebDriverWait waiter;
+    private String navegador = "firefox"; // "edge", "firefox" y "chrome"
 
     @BeforeEach // antes de cada prueba
     void setup() {
-        //driver = WebDriverManager.getInstance("chrome").create();
-        driver = WebDriverManager.getInstance("edge").create();
-        //driver = WebDriverManager.getInstance("firefox").create();
+        driver = WebDriverManager.getInstance(navegador).create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
@@ -60,7 +61,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("50");
         agregarMedicinaPage.setPrm("270");
         agregarMedicinaPage.setBatchNo("685507");
-        agregarMedicinaPage.setExpdate("02122024"); // 02/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-02":"02/12/2024"); // 02/12/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -82,7 +83,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("385");
         agregarMedicinaPage.setBatchNo("166707");
-        agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-05-08":"08/05/2025"); // 08/05/2025
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -103,7 +104,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("65");
         agregarMedicinaPage.setPrm("117");
         agregarMedicinaPage.setBatchNo("282270");
-        agregarMedicinaPage.setExpdate("09062026"); // 09/06/2026
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2026-06-09":"09/06/2026"); // 09/06/2026
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -123,7 +124,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("300");
         agregarMedicinaPage.setPrm("451");
         agregarMedicinaPage.setBatchNo("337852");
-        agregarMedicinaPage.setExpdate("20022024"); // 20/02/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-02-20":"20/02/2024"); // 20/02/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -142,7 +143,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("650");
         agregarMedicinaPage.setPrm("321");
         agregarMedicinaPage.setBatchNo("476200");
-        agregarMedicinaPage.setExpdate("231122025"); // 31/12/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-12-31":"31/12/2025"); // 31/12/2025
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -162,7 +163,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("50");
         agregarMedicinaPage.setPrm("123");
         agregarMedicinaPage.setBatchNo("583072");
-        agregarMedicinaPage.setExpdate("08052024"); // 08/05/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-05-08":"08/05/2024"); // 08/05/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -182,7 +183,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("415");
         agregarMedicinaPage.setBatchNo("408572");
-        agregarMedicinaPage.setExpdate("11122024"); // 11/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-11":"11/12/2024"); // 11/12/2024
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -202,7 +203,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("65");
         agregarMedicinaPage.setPrm("233");
         agregarMedicinaPage.setBatchNo("973296");
-        agregarMedicinaPage.setExpdate("05102030"); // 5/10/2030
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2030-10-05":"05/10/2030"); // 05/10/2030
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -222,7 +223,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("300");
         agregarMedicinaPage.setPrm("322");
         agregarMedicinaPage.setBatchNo("346389");
-        agregarMedicinaPage.setExpdate("15052028"); // 15/05/2028
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2028-05-15":"15/05/2028"); // 15/05/2028
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -242,7 +243,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("650");
         agregarMedicinaPage.setPrm("413");
         agregarMedicinaPage.setBatchNo("930638");
-        agregarMedicinaPage.setExpdate("09062026"); // 09/06/2026
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2026-06-09":"09/06/2026"); // 09/06/2026
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -262,7 +263,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("50");
         agregarMedicinaPage.setPrm("143");
         agregarMedicinaPage.setBatchNo("417099");
-        agregarMedicinaPage.setExpdate("15022027"); // 15/02/2027
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2027-02-15":"15/02/2027"); // 15/02/2027
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -282,7 +283,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("111");
         agregarMedicinaPage.setBatchNo("107164");
-        agregarMedicinaPage.setExpdate("02122024"); // 02/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-02":"02/12/2024"); // 02/12/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -302,7 +303,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("65");
         agregarMedicinaPage.setPrm("242");
         agregarMedicinaPage.setBatchNo("828191");
-        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-31":"31/12/2024"); // 31/12/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -322,7 +323,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("300");
         agregarMedicinaPage.setPrm("210");
         agregarMedicinaPage.setBatchNo("534571");
-        agregarMedicinaPage.setExpdate("20022028"); // 20/02/2028
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2028-02-20":"20/02/2028"); // 20/02/2028
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -342,7 +343,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("0");
         agregarMedicinaPage.setPrm("101");
         agregarMedicinaPage.setBatchNo("292803");
-        agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-05-08":"08/05/2025"); // 08/05/2025
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -362,7 +363,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("10000");
         agregarMedicinaPage.setPrm("178");
         agregarMedicinaPage.setBatchNo("565809");
-        agregarMedicinaPage.setExpdate("15012024"); // 15/01/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-01-15":"15/01/2024"); // 15/01/2024
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -382,7 +383,7 @@ public class AgregarMedicinaTest {
         //agregarMedicinaPage.setPrice("300");
         agregarMedicinaPage.setPrm("288");
         agregarMedicinaPage.setBatchNo("570788");
-        agregarMedicinaPage.setExpdate("20022029"); // 20/02/2029
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2029-02-20":"20/02/2029"); // 20/02/2029
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -402,7 +403,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("50");
         agregarMedicinaPage.setPrm("-1");
         agregarMedicinaPage.setBatchNo("993095");
-        agregarMedicinaPage.setExpdate("05052025"); // 05/05/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-05-05":"05/05/2025"); // 05/05/2025
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -422,7 +423,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("501");
         agregarMedicinaPage.setBatchNo("503540");
-        agregarMedicinaPage.setExpdate("13082024"); // 13/08/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-08-13":"13/08/2024"); // 13/08/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -442,7 +443,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("65");
         //agregarMedicinaPage.setPrm("288");
         agregarMedicinaPage.setBatchNo("512276");
-        agregarMedicinaPage.setExpdate("25072025"); // 25/07/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-07-25":"25/07/2025"); // 25/07/2025
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -462,7 +463,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("300");
         agregarMedicinaPage.setPrm("487");
         agregarMedicinaPage.setBatchNo("99999");
-        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-31":"31/12/2024"); // 31/12/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -482,7 +483,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("650");
         agregarMedicinaPage.setPrm("398");
         agregarMedicinaPage.setBatchNo("1000000");
-        agregarMedicinaPage.setExpdate("15102024"); // 15/10/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-10-15":"15/10/2024"); // 15/10/2024
         agregarMedicinaPage.setBrandName("Cipla");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -502,7 +503,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("50");
         agregarMedicinaPage.setPrm("499");
         //agregarMedicinaPage.setBatchNo("512276");
-        agregarMedicinaPage.setExpdate("08052025"); // 08/05/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-05-08":"08/05/2025"); // 08/05/2025
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -522,7 +523,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("411");
         agregarMedicinaPage.setBatchNo("709291");
-        agregarMedicinaPage.setExpdate("02102023"); // 02/10/2023
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2023-10-02":"02/10/2023"); // 02/10/2023
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -547,7 +548,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("65");
         agregarMedicinaPage.setPrm("275");
         agregarMedicinaPage.setBatchNo("949838");
-        agregarMedicinaPage.setExpdate("10102100"); // 10/10/2100
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2100-10-10":"10/10/2100"); // 10/10/2100
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -587,7 +588,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("650");
         agregarMedicinaPage.setPrm("345");
         agregarMedicinaPage.setBatchNo("805346");
-        agregarMedicinaPage.setExpdate("22082025"); // 22/08/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-08-22":"22/08/2025"); // 22/08/2025
         //agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Pastillas");
         agregarMedicinaPage.setProductStatus("Disponible");
@@ -607,7 +608,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("70");
         agregarMedicinaPage.setPrm("321");
         agregarMedicinaPage.setBatchNo("416267");
-        agregarMedicinaPage.setExpdate("31122024"); // 31/12/2024
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2024-12-31":"31/12/2024"); // 31/12/2024
         agregarMedicinaPage.setBrandName("Cipla");
         //agregarMedicinaPage.setCategoryName("Vacunas");
         agregarMedicinaPage.setProductStatus("No disponible");
@@ -627,7 +628,7 @@ public class AgregarMedicinaTest {
         agregarMedicinaPage.setPrice("13");
         agregarMedicinaPage.setPrm("488");
         agregarMedicinaPage.setBatchNo("881890");
-        agregarMedicinaPage.setExpdate("18102025"); // 18/10/2025
+        agregarMedicinaPage.setExpdate((Objects.equals(navegador, "firefox"))?"2025-10-18":"18/10/2025"); // 18/10/2025
         agregarMedicinaPage.setBrandName("Inkafarma");
         agregarMedicinaPage.setCategoryName("Vacunas");
         //agregarMedicinaPage.setProductStatus("No disponible");

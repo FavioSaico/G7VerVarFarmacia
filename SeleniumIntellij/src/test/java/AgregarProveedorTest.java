@@ -24,12 +24,10 @@ public class AgregarProveedorTest {
     private AgregarProveedorPage agregarProveedorPage;
     private Dotenv dotenv = Dotenv.configure().load();
     private WebDriverWait waiter;
-
+    private String navegador = "firefox"; // "edge", "firefox" y "chrome"
     @BeforeEach // antes de cada prueba
     void setup() {
-        driver = WebDriverManager.getInstance("chrome").create();
-        //driver = WebDriverManager.getInstance("edge").create();
-        //driver = WebDriverManager.getInstance("firefox").create();
+        driver = WebDriverManager.getInstance(navegador).create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
@@ -47,6 +45,8 @@ public class AgregarProveedorTest {
         // AGREGAR PROVEEDOR
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-brand.php");
         agregarProveedorPage = new AgregarProveedorPage(driver);
+
+        waiter.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
     }
 
     @AfterEach

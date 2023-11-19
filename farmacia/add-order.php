@@ -353,9 +353,9 @@ if ($_GET['o'] == 'add') {
         </div>
         <div class="form-group submitButtonFooter">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" id="createOrderBtn" data-loading-text="Loading..." class="btn btn-success btn-flat m-b-30 m-t-30"><i class="glyphicon glyphicon-ok-sign"></i> Enviar</button>
+            <button type="submit" id="createOrderBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Enviar</button>
 
-            <button type="reset" class="btn btn-danger btn-flat m-b-30 m-t-30" onclick="resetOrderForm()"><i class="glyphicon glyphicon-erase"></i> Resetear</button>
+            <button type="reset" class="btn btn-danger btn-flat m-b-30 m-t-30" onclick="resetOrderForm()">Resetear</button>
           </div>
         </div>
 

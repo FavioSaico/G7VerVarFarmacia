@@ -13,6 +13,7 @@ import pages.LoginPage;
 import pages.AgregarFacturaPage;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,12 +25,11 @@ public class AgregarFacturaTest {
     private LoginPage loginPage;
 	private Dotenv dotenv = Dotenv.configure().load();
 	private WebDriverWait waiter;
+	private String navegador = "firefox"; // "edge", "firefox" y "chrome"
 
     @BeforeEach // antes de cada prueba
     void setup() {
-		driver = WebDriverManager.getInstance("chrome").create();
-		//driver = WebDriverManager.getInstance("edge").create();
-		//driver = WebDriverManager.getInstance("firefox").create();
+		driver = WebDriverManager.getInstance(navegador).create();
 
         driver.get("http://localhost/G7VerVarFarmacia/farmacia/login.php");
         driver.manage().window().maximize();
@@ -49,6 +49,11 @@ public class AgregarFacturaTest {
         // AGREGAR FACTURA
 		driver.get("http://localhost/G7VerVarFarmacia/farmacia/add-order.php");
         agregarFacturaPage = new AgregarFacturaPage(driver);
+
+		waiter.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
+
+		WebElement elementoParaEliminar = driver.findElement(By.className("text-center"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].remove();", elementoParaEliminar);
     }
 
     @AfterEach
@@ -58,7 +63,7 @@ public class AgregarFacturaTest {
 
     @Test
     void CP01_Test(){
-    	agregarFacturaPage.setOrderDate("05112023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-11-05":"05/11/2023");
     	agregarFacturaPage.setClientName("Alex Kim");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -68,6 +73,7 @@ public class AgregarFacturaTest {
     	agregarFacturaPage.setPaymentType("Efectivo");
     	agregarFacturaPage.setPaymentStatus("Pago Completo");
     	agregarFacturaPage.setPaymentPlace("Colombia");
+
 
     	agregarFacturaPage.submit();
 
@@ -79,7 +85,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP02_Test(){
-    	agregarFacturaPage.setOrderDate("04112023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-11-04":"04/11/2023");
     	agregarFacturaPage.setClientName("Mia Li");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -100,7 +106,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP03_Test(){
-    	agregarFacturaPage.setOrderDate("05112024");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2024-11-05":"05/11/2024");
     	agregarFacturaPage.setClientName("Leo Wu");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -138,7 +144,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP05_Test(){
-    	agregarFacturaPage.setOrderDate("03112023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-11-03":"03/11/2023");
     	agregarFacturaPage.setClientName("Jose Luis Cornejo De La Paz");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -157,7 +163,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP06_Test(){
-    	agregarFacturaPage.setOrderDate("02112023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-11-02":"02/11/2023");
     	//agregarFacturaPage.setClientName("Jose Luis Cornejo De La Paz");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -176,7 +182,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP07_Test(){
-    	agregarFacturaPage.setOrderDate("01112023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-11-01":"01/11/2023");
     	agregarFacturaPage.setClientName("Max Wong");
     	agregarFacturaPage.setClientContact("12345678");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -195,7 +201,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP08_Test(){
-    	agregarFacturaPage.setOrderDate("31102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-31":"31/10/2023");
     	agregarFacturaPage.setClientName("Luke Yip");
     	agregarFacturaPage.setClientContact("1234567898");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -214,7 +220,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP09_Test(){
-    	agregarFacturaPage.setOrderDate("30102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-31":"30/10/2023");
     	agregarFacturaPage.setClientName("Lily Ho");
     	//agregarFacturaPage.setClientContact("12345678");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -233,7 +239,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP10_Test(){
-    	agregarFacturaPage.setOrderDate("29102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-29":"29/10/2023");
     	agregarFacturaPage.setClientName("Ben Cheung");
     	agregarFacturaPage.setClientContact("555123456");
     	//agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -252,7 +258,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP11_Test(){
-    	agregarFacturaPage.setOrderDate("28102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-28":"28/10/2023");
     	agregarFacturaPage.setClientName("Zoe Fung");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Acetaminofen 500");
@@ -271,7 +277,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP12_Test(){
-    	agregarFacturaPage.setOrderDate("27102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-27":"27/10/2023");
     	agregarFacturaPage.setClientName("Sam Lo");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -290,7 +296,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP13_Test(){
-    	agregarFacturaPage.setOrderDate("26102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-26":"26/10/2023");
     	agregarFacturaPage.setClientName("Grace Lam");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -309,7 +315,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP14_Test(){
-    	agregarFacturaPage.setOrderDate("25102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-25":"25/10/2023");
     	agregarFacturaPage.setClientName("Eli Ma");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -328,7 +334,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP15_Test(){
-    	agregarFacturaPage.setOrderDate("24102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-25":"25/10/2023");
     	agregarFacturaPage.setClientName("Sofia Leung");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -347,7 +353,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP16_Test(){
-    	agregarFacturaPage.setOrderDate("23102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-23":"23/10/2023");
     	agregarFacturaPage.setClientName("Jack Au");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -366,7 +372,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP17_Test(){
-    	agregarFacturaPage.setOrderDate("22102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-22":"22/10/2023");
     	agregarFacturaPage.setClientName("Ella Ngai");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -385,7 +391,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP18_Test(){
-    	agregarFacturaPage.setOrderDate("21102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-21":"21/10/2023");
     	agregarFacturaPage.setClientName("Noah Yeung");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -404,7 +410,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP19_Test(){
-    	agregarFacturaPage.setOrderDate("20102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-20":"20/10/2023");
     	agregarFacturaPage.setClientName("Maya Chiu");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
@@ -423,7 +429,7 @@ public class AgregarFacturaTest {
     
     @Test
     void CP20_Test(){
-    	agregarFacturaPage.setOrderDate("19102023");
+    	agregarFacturaPage.setOrderDate((Objects.equals(navegador, "firefox"))?"2023-10-19":"19/10/2023");
     	agregarFacturaPage.setClientName("Liam Lau");
     	agregarFacturaPage.setClientContact("555123456");
     	agregarFacturaPage.setProductName("Levotiroxina 100gr");
